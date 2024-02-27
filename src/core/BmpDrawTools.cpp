@@ -153,11 +153,13 @@ std::vector<TPoint> BmpGetCirclePoint(const TPoint& centerPoint, U32 radius) {
 	}
 
 	U32 vecSize = pointVec.size();
-	for (U32 i = 1; i < vecSize; ++i) {
+	for (U32 i = 0; i < vecSize; ++i) {
 		TPoint symPoint = {0, 0};
 		symPoint.x = centerPoint.x - (pointVec[i].x - centerPoint.x);
 		symPoint.y = pointVec[i].y;
-		pointVec.push_back(symPoint);
+		if (symPoint.x != centerPoint.x) {
+			pointVec.push_back(symPoint);
+		}
 	}
 
 	vecSize = pointVec.size();
@@ -165,7 +167,9 @@ std::vector<TPoint> BmpGetCirclePoint(const TPoint& centerPoint, U32 radius) {
 		TPoint symPoint = {0, 0};
 		symPoint.x = pointVec[i].x;
 		symPoint.y = centerPoint.y - (pointVec[i].y - centerPoint.y);
-		pointVec.push_back(symPoint);
+		if (symPoint.y != centerPoint.y) {
+			pointVec.push_back(symPoint);
+		}
 	}
 
 	return pointVec;
