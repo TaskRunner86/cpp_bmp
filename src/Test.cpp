@@ -267,7 +267,21 @@ static void BmpDrawToolsTest() {
 	for (U32 i = 0; i < areaPoints.size(); ++i) {
 		BmpDrawPoint(bmp, areaPoints[i], {0, 0x8f, 0xff});
 	}
-	bmp.Save(DIR "draw_polygon_area.bmp");	
+	bmp.Save(DIR "draw_triangle_area.bmp");	
+
+	bmp.Init(10, 10);
+	polygonPoints.clear();
+	polygonPoints.push_back({0, 0});
+	polygonPoints.push_back({9, 0});
+	polygonPoints.push_back({9, 9});
+	polygonPoints.push_back({0, 9});
+	BmpDrawPolygon(bmp, polygonPoints, rgb);
+	polygonBorder = BmpGetPolygonPoint(polygonPoints);
+	areaPoints = BmpGetAreaPoint(polygonBorder, {5, 5}, 10, 10);
+	for (U32 i = 0; i < areaPoints.size(); ++i) {
+		BmpDrawPoint(bmp, areaPoints[i], {0, 0x8f, 0xff});
+	}
+	bmp.Save(DIR "draw_square_area.bmp");
 
 	bmp.Init(100, 100);
 	TPoint centerPoint = {50, 50};

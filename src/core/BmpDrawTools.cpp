@@ -164,17 +164,20 @@ std::vector<TPoint> BmpGetLinePoint(const TPoint& start, const TPoint& end) {
 //
 //------------------------------------------------------------------------------
 std::vector<TPoint> BmpGetPolygonPoint(std::vector<TPoint> pointVec) {
-	std::vector<TPoint> polygonPointVec;
+	std::set<TPoint> pointSet;
 	for (U32 i = 0; i < pointVec.size() - 1; ++i) {
 		std::vector<TPoint> linePointVec = BmpGetLinePoint(pointVec[i], pointVec[i + 1]);
-		for (U32 j = 0; j < linePointVec.size() - 1; ++j) {
-			polygonPointVec.push_back(linePointVec[j]);
+		for (U32 j = 0; j < linePointVec.size(); ++j) {
+			pointSet.insert(linePointVec[j]);
 		}
 	}
-	std::vector<TPoint> linePointVec = BmpGetLinePoint(pointVec[pointVec.size() - 1], pointVec[0]);
-	for (U32 i = 0; i < linePointVec.size() - 1; ++i) {
-		polygonPointVec.push_back(linePointVec[i]);
+
+	std::vector<TPoint> linePointVec = BmpGetLinePoint(pointVec[0], pointVec[pointVec.size() - 1]);
+	for (U32 j = 0; j < linePointVec.size(); ++j) {
+		pointSet.insert(linePointVec[j]);
 	}
+
+	std::vector<TPoint> polygonPointVec(pointSet.begin(), pointSet.end());
 	return polygonPointVec;
 }
 
