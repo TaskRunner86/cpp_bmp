@@ -300,9 +300,8 @@ static void BmpDrawToolsTest() {
 	std::vector<TPoint> CircleBorder = BmpGetCirclePoint(centerPoint, radius);
 	areaPoints = BmpGetAreaPoint(CircleBorder, centerPoint, 41, 41);
 	
-	rgb = {0, 0x8f, 0xff};
 	for (U32 i = 0; i < areaPoints.size(); ++i) {
-		BmpDrawPoint(bmp, areaPoints[i], rgb);
+		BmpDrawPoint(bmp, areaPoints[i], {0, 0x8f, 0xff});
 	}
 	bmp.Save(DIR "draw_circle_area.bmp");				
 }
