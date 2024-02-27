@@ -70,6 +70,10 @@ void BmpDrawLine(CBmp& bmp, const TPoint& start, const TPoint& end, const TRGB& 
 //
 //------------------------------------------------------------------------------
 void BmpDrawCircle(CBmp& bmp, const TPoint& centerPoint, U32 radius, const TRGB& rgb) {
+	if (radius == 0) {
+		return;
+	}
+
 	std::vector<TPoint> pointVec = BmpGetCirclePoint(centerPoint, radius);
 	
 	for (U32 i = 0; i < pointVec.size(); ++i) {
@@ -155,22 +159,32 @@ std::vector<TPoint> BmpGetCirclePoint(const TPoint& centerPoint, U32 radius) {
 
 	U32 vecSize = pointVec.size();
 	for (U32 i = 0; i < vecSize; ++i) {
+		if (centerPoint.x < (pointVec[i].x - centerPoint.x)) {
+			continue;
+		}
+
 		TPoint symPoint = {0, 0};
 		symPoint.x = centerPoint.x - (pointVec[i].x - centerPoint.x);
 		symPoint.y = pointVec[i].y;
-		if (symPoint.x != centerPoint.x) {
-			pointVec.push_back(symPoint);
+		if (symPoint.x == centerPoint.x) {
+			continue;
 		}
+		pointVec.push_back(symPoint);
 	}
 
 	vecSize = pointVec.size();
 	for (U32 i = 0; i < vecSize; ++i) {
+		if (centerPoint.y < (pointVec[i].y - centerPoint.y)) {
+			continue;
+		}
+
 		TPoint symPoint = {0, 0};
 		symPoint.x = pointVec[i].x;
 		symPoint.y = centerPoint.y - (pointVec[i].y - centerPoint.y);
-		if (symPoint.y != centerPoint.y) {
-			pointVec.push_back(symPoint);
+		if (symPoint.y == centerPoint.y) {
+			continue;
 		}
+		pointVec.push_back(symPoint);
 	}
 
 	return pointVec;
@@ -182,6 +196,10 @@ std::vector<TPoint> BmpGetCirclePoint(const TPoint& centerPoint, U32 radius) {
 //------------------------------------------------------------------------------
 static std::vector<TPoint> BmpDrawGetSectorPoint(U32 radius) {
 	std::vector<TPoint> pointVec;
+
+	if (radius == 0) {
+		return pointVec;
+	}
 
 	for (U32 i = 0; i <= radius; ++i) {
 		TPoint circlePoint = {0, 0};
@@ -219,3 +237,4 @@ static bool BmpDrawCheckPointValid(const CBmp& bmp, const TPoint& point) {
 
 	return true;
 }
+
