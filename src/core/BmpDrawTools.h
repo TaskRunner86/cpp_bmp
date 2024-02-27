@@ -28,6 +28,12 @@
 //******************************************************************************
 
 typedef struct TagPoint {
+	bool operator < (const TagPoint& point) const{
+		if (this->x != point.x)
+			return this->x < point.x;
+		return this->y < point.y;
+	}
+
 	U32 x;
 	U32 y;
 } TPoint;

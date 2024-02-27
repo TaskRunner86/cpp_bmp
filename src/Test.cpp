@@ -259,6 +259,6 @@ static void BmpDrawToolsTest() {
 	TPoint centerPoint = {50, 50};
 	U32 radius = 40;
 	BmpDrawCircle(bmp, centerPoint, radius, rgb);
-	bmp.Save(DIR "draw_circle_19_0_40.bmp");	
+	bmp.Save(DIR "draw_circle_50_40.bmp");	
 }
 

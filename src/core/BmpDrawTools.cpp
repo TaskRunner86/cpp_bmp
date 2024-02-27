@@ -15,8 +15,9 @@
 **************************************************************************/
 
 
-#include<cmath>
 #include "BmpDrawTools.h"
+#include <cmath>
+#include <set>
 
 
 //******************************************************************************
@@ -70,7 +71,7 @@ void BmpDrawLine(CBmp& bmp, const TPoint& start, const TPoint& end, const TRGB& 
 //------------------------------------------------------------------------------
 void BmpDrawCircle(CBmp& bmp, const TPoint& centerPoint, U32 radius, const TRGB& rgb) {
 	std::vector<TPoint> pointVec = BmpGetCirclePoint(centerPoint, radius);
-
+	
 	for (U32 i = 0; i < pointVec.size(); ++i) {
 		BmpDrawPoint(bmp, pointVec[i], rgb);
 	}
