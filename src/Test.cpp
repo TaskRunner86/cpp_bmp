@@ -255,6 +255,20 @@ static void BmpDrawToolsTest() {
 	BmpDrawLine(bmp, startPoint, endPoint, rgb);
 	bmp.Save(DIR "draw_line_19_0_19_39.bmp");
 
+	bmp.Init(41, 41);
+	std::vector<TPoint> polygonPoints;
+	polygonPoints.push_back({0, 0});
+	polygonPoints.push_back({40, 0});
+	polygonPoints.push_back({20, 40});
+	BmpDrawPolygon(bmp, polygonPoints, rgb);
+	std::vector<TPoint> polygonBorder = BmpGetPolygonPoint(polygonPoints);
+	std::vector<TPoint> areaPoints = BmpGetAreaPoint(polygonBorder, {20, 20}, 41, 41);
+	
+	for (U32 i = 0; i < areaPoints.size(); ++i) {
+		BmpDrawPoint(bmp, areaPoints[i], {0, 0x8f, 0xff});
+	}
+	bmp.Save(DIR "draw_polygon_area.bmp");	
+
 	bmp.Init(100, 100);
 	TPoint centerPoint = {50, 50};
 	U32 radius = 40;
@@ -277,6 +291,19 @@ static void BmpDrawToolsTest() {
 	centerPoint = {20, 20};
 	radius = 20;
 	BmpDrawCircle(bmp, centerPoint, radius, rgb);
-	bmp.Save(DIR "draw_circle_20_20_20.bmp");			
+	bmp.Save(DIR "draw_circle_20_20_20.bmp");
+
+	bmp.Init(41, 41);
+	centerPoint = {20, 20};
+	radius = 20;
+	BmpDrawCircle(bmp, centerPoint, radius, rgb);
+	std::vector<TPoint> CircleBorder = BmpGetCirclePoint(centerPoint, radius);
+	areaPoints = BmpGetAreaPoint(CircleBorder, centerPoint, 41, 41);
+	
+	rgb = {0, 0x8f, 0xff};
+	for (U32 i = 0; i < areaPoints.size(); ++i) {
+		BmpDrawPoint(bmp, areaPoints[i], rgb);
+	}
+	bmp.Save(DIR "draw_circle_area.bmp");				
 }
 

@@ -32,6 +32,7 @@
 //******************************************************************************
 
 static std::vector<TPoint> BmpDrawGetSectorPoint(U32 radius);
+static std::vector<TPoint> BmpDrawGetNeighborPoint(const TPoint& point,	U32 width, U32 height);
 static bool BmpDrawCheckPointValid(const CBmp& bmp, const TPoint& point);
 
 
@@ -62,6 +63,18 @@ void BmpDrawLine(CBmp& bmp, const TPoint& start, const TPoint& end, const TRGB& 
 
 	for (U32 i = 0; i < pointVec.size(); ++i) {
 		BmpDrawPoint(bmp, pointVec[i], rgb);
+	}
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+void BmpDrawPolygon(CBmp& bmp, std::vector<TPoint> pointVec, const TRGB& rgb) {
+	std::vector<TPoint> polygonBorder = BmpGetPolygonPoint(pointVec);
+
+	for (U32 i = 0; i < polygonBorder.size(); ++i) {
+		BmpDrawPoint(bmp, polygonBorder[i], rgb);
 	}
 }
 
@@ -150,6 +163,25 @@ std::vector<TPoint> BmpGetLinePoint(const TPoint& start, const TPoint& end) {
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
+std::vector<TPoint> BmpGetPolygonPoint(std::vector<TPoint> pointVec) {
+	std::vector<TPoint> polygonPointVec;
+	for (U32 i = 0; i < pointVec.size() - 1; ++i) {
+		std::vector<TPoint> linePointVec = BmpGetLinePoint(pointVec[i], pointVec[i + 1]);
+		for (U32 j = 0; j < linePointVec.size() - 1; ++j) {
+			polygonPointVec.push_back(linePointVec[j]);
+		}
+	}
+	std::vector<TPoint> linePointVec = BmpGetLinePoint(pointVec[pointVec.size() - 1], pointVec[0]);
+	for (U32 i = 0; i < linePointVec.size() - 1; ++i) {
+		polygonPointVec.push_back(linePointVec[i]);
+	}
+	return polygonPointVec;
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
 std::vector<TPoint> BmpGetCirclePoint(const TPoint& centerPoint, U32 radius) {
 	std::vector<TPoint> pointVec = BmpDrawGetSectorPoint(radius);
 	for (U32 i = 0; i < pointVec.size(); ++i) {
@@ -194,6 +226,46 @@ std::vector<TPoint> BmpGetCirclePoint(const TPoint& centerPoint, U32 radius) {
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
+std::vector<TPoint> BmpGetAreaPoint(
+	std::vector<TPoint> border,
+	const TPoint& inAreaPoint,
+	U32 width,
+	U32 height	
+) {
+	std::set<TPoint> borderSet(border.begin(), border.end());
+	std::set<TPoint> areaPointSet;
+	std::set<TPoint> procPointSet;
+	procPointSet.insert(inAreaPoint);
+	areaPointSet.insert(inAreaPoint);
+
+	while (!procPointSet.empty()) {
+		TPoint curPoint = *procPointSet.begin();
+		std::vector<TPoint> neighborPointVec = BmpDrawGetNeighborPoint(
+			curPoint, width, height);
+		for (U32 i = 0; i < neighborPointVec.size(); ++i) {
+			if (areaPointSet.find(neighborPointVec[i]) != areaPointSet.end()) {
+				continue;
+			}
+
+			if (borderSet.find(neighborPointVec[i]) != borderSet.end()) {
+				continue;
+			}
+
+			procPointSet.insert(neighborPointVec[i]);
+			areaPointSet.insert(neighborPointVec[i]);
+		}
+
+		procPointSet.erase(curPoint);
+	}
+
+	std::vector<TPoint> areaPointVec(areaPointSet.begin(), areaPointSet.end());
+	return areaPointVec;
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
 static std::vector<TPoint> BmpDrawGetSectorPoint(U32 radius) {
 	std::vector<TPoint> pointVec;
 
@@ -218,6 +290,43 @@ static std::vector<TPoint> BmpDrawGetSectorPoint(U32 radius) {
 		}
 	}
 	return pointVec;
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static std::vector<TPoint> BmpDrawGetNeighborPoint(const TPoint& point, U32 width, U32 height) {
+	std::vector<TPoint> neighborPointVec;
+	if ((point.y + 1) != height) {
+		TPoint neighborPoint;
+		neighborPoint.x = point.x;
+		neighborPoint.y = point.y + 1; 
+		neighborPointVec.push_back(neighborPoint);
+	}
+
+	if (point.y != 0) {
+		TPoint neighborPoint;
+		neighborPoint.x = point.x;
+		neighborPoint.y = point.y - 1; 
+		neighborPointVec.push_back(neighborPoint);
+	}
+
+	if (point.x != 0) {
+		TPoint neighborPoint;
+		neighborPoint.x = point.x - 1;
+		neighborPoint.y = point.y; 
+		neighborPointVec.push_back(neighborPoint);
+	}
+
+	if ((point.x + 1) != height) {
+		TPoint neighborPoint;
+		neighborPoint.x = point.x + 1;
+		neighborPoint.y = point.y; 
+		neighborPointVec.push_back(neighborPoint);
+	}
+
+	return neighborPointVec;
 }
 
 
