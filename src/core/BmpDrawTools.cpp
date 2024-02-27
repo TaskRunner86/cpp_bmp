@@ -21,13 +21,6 @@
 
 
 //******************************************************************************
-// macro
-//******************************************************************************
-
-#define GRAD_MAX_VAL (100000)
-
-
-//******************************************************************************
 // declaration of function
 //******************************************************************************
 
@@ -111,23 +104,42 @@ std::vector<TPoint> BmpGetLinePoint(const TPoint& start, const TPoint& end) {
 		rightPoint = start;
 	}
 
+	if (leftPoint.y < rightPoint.y) {
+		TPoint linePoint;
+		linePoint.x = leftPoint.x;
+		if (rightPoint.x == leftPoint.x) {
+			for (U32 i = 0; i < (rightPoint.y - leftPoint.y); ++i) {
+				linePoint.y = leftPoint.y + i;
+				pointVec.push_back(linePoint);
+			}
+			return pointVec;
+		} 
+	} else {
+		TPoint linePoint;
+		linePoint.x = leftPoint.x;
+		if (rightPoint.x == leftPoint.x) {
+			for (U32 i = 0; i < (leftPoint.y - rightPoint.y); ++i) {
+				linePoint.y = leftPoint.y - i;
+				pointVec.push_back(linePoint);
+			}
+			return pointVec;
+		} 
+	}
+
 	for (U32 i = leftPoint.x; i <= rightPoint.x; ++i) {
 		TPoint linePoint;
 		linePoint.x = i;
 
 		if (leftPoint.y < rightPoint.y) {
-			double grad = 0;
-			if (rightPoint.x != leftPoint.x) {
-				grad = ((double)rightPoint.y - leftPoint.y) / 
-					((double)rightPoint.x - leftPoint.x);
-			} else {
-				grad = GRAD_MAX_VAL;
-			}
+			double grad = ((double)rightPoint.y - leftPoint.y) / 
+				((double)rightPoint.x - leftPoint.x);
+			
 			linePoint.y = leftPoint.y + (i - leftPoint.x) * grad;
 			pointVec.push_back(linePoint);
 
-			U32 j = 1;
-			while (j < grad && j <= (rightPoint.y - leftPoint.y)) {
+			U32 nextY = leftPoint.y + (i + 1 - leftPoint.x) * grad;
+			U32 j = linePoint.y;
+			while ((j + 1) < nextY) {
 				++linePoint.y;
 				if (linePoint.y <= rightPoint.y && leftPoint.y <= linePoint.y) {
 					pointVec.push_back(linePoint);
@@ -135,23 +147,20 @@ std::vector<TPoint> BmpGetLinePoint(const TPoint& start, const TPoint& end) {
 				++j;
 			}
 		} else {
-			double grad = 0;
-			if (rightPoint.x != leftPoint.x) {
-				grad = ((double)leftPoint.y - rightPoint.y) / 
-					((double)rightPoint.x - leftPoint.x);
-			} else {
-				grad = GRAD_MAX_VAL;
-			}
+			double grad = ((double)leftPoint.y - rightPoint.y) / 
+				((double)rightPoint.x - leftPoint.x);
+
 			linePoint.y = leftPoint.y - (i - leftPoint.x) * grad;
 			pointVec.push_back(linePoint);
 
-			U32 j = 1;
-			while (j < grad && j <= (leftPoint.y - rightPoint.y)) {
+			U32 nextY = leftPoint.y - (i + 1 - leftPoint.x) * grad;
+			U32 j = linePoint.y;
+			while ((nextY + 1) < j) {
 				--linePoint.y;
 				if (linePoint.y <= leftPoint.y && rightPoint.y <= linePoint.y) {
 					pointVec.push_back(linePoint);
 				}
-				++j;
+				--j;
 			}
 		}	
 	}

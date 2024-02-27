@@ -41,7 +41,7 @@ static void BmpDrawToolsTest();
 //
 //------------------------------------------------------------------------------
 int main(int argc, char *argv[]) {
-	BmpToolsTest();
+	// BmpToolsTest();
 	BmpDrawToolsTest();
 	return 0;
 }
@@ -262,12 +262,28 @@ static void BmpDrawToolsTest() {
 	polygonPoints.push_back({20, 40});
 	BmpDrawPolygon(bmp, polygonPoints, rgb);
 	std::vector<TPoint> polygonBorder = BmpGetPolygonPoint(polygonPoints);
-	std::vector<TPoint> areaPoints = BmpGetAreaPoint(polygonBorder, {20, 20}, 41, 41);
+	std::vector<TPoint> areaPoints = BmpGetAreaPoint(polygonBorder, {20, 20}, bmp.GetWidth(), bmp.GetHeight());
 	
 	for (U32 i = 0; i < areaPoints.size(); ++i) {
 		BmpDrawPoint(bmp, areaPoints[i], {0, 0x8f, 0xff});
 	}
 	bmp.Save(DIR "draw_triangle_area.bmp");	
+
+	bmp.Init(40, 40);
+	polygonPoints.clear();
+	polygonPoints.push_back({3, 3});
+	polygonPoints.push_back({3, 20});
+	polygonPoints.push_back({20, 20});
+	polygonPoints.push_back({20, 3});
+	BmpDrawPolygon(bmp, polygonPoints, rgb);
+	polygonBorder = BmpGetPolygonPoint(polygonPoints);
+	polygonBorder.pop_back();
+	polygonBorder.pop_back();
+	areaPoints = BmpGetAreaPoint(polygonBorder, {20, 20}, bmp.GetWidth(), bmp.GetHeight());
+	for (U32 i = 0; i < areaPoints.size(); ++i) {
+		BmpDrawPoint(bmp, areaPoints[i], {0, 0x8f, 0xff});
+	}
+	bmp.Save(DIR "draw_broken_area.bmp");
 
 	bmp.Init(10, 10);
 	polygonPoints.clear();
@@ -312,7 +328,7 @@ static void BmpDrawToolsTest() {
 	radius = 20;
 	BmpDrawCircle(bmp, centerPoint, radius, rgb);
 	std::vector<TPoint> CircleBorder = BmpGetCirclePoint(centerPoint, radius);
-	areaPoints = BmpGetAreaPoint(CircleBorder, centerPoint, 41, 41);
+	areaPoints = BmpGetAreaPoint(CircleBorder, centerPoint, bmp.GetWidth(), bmp.GetHeight());
 	
 	for (U32 i = 0; i < areaPoints.size(); ++i) {
 		BmpDrawPoint(bmp, areaPoints[i], {0, 0x8f, 0xff});
