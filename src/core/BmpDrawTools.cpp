@@ -108,7 +108,7 @@ std::vector<TPoint> BmpGetLinePoint(const TPoint& start, const TPoint& end) {
 		TPoint linePoint;
 		linePoint.x = leftPoint.x;
 		if (rightPoint.x == leftPoint.x) {
-			for (U32 i = 0; i < (rightPoint.y - leftPoint.y); ++i) {
+			for (U32 i = 0; i <= (rightPoint.y - leftPoint.y); ++i) {
 				linePoint.y = leftPoint.y + i;
 				pointVec.push_back(linePoint);
 			}
@@ -118,7 +118,7 @@ std::vector<TPoint> BmpGetLinePoint(const TPoint& start, const TPoint& end) {
 		TPoint linePoint;
 		linePoint.x = leftPoint.x;
 		if (rightPoint.x == leftPoint.x) {
-			for (U32 i = 0; i < (leftPoint.y - rightPoint.y); ++i) {
+			for (U32 i = 0; i <= (leftPoint.y - rightPoint.y); ++i) {
 				linePoint.y = leftPoint.y - i;
 				pointVec.push_back(linePoint);
 			}
