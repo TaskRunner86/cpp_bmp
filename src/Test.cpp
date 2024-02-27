@@ -41,7 +41,7 @@ static void BmpDrawToolsTest();
 //
 //------------------------------------------------------------------------------
 int main(int argc, char *argv[]) {
-	// BmpToolsTest();
+	BmpToolsTest();
 	BmpDrawToolsTest();
 	return 0;
 }
@@ -157,7 +157,6 @@ static void BmpToolsTest() {
 }
 
 
-
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
@@ -254,6 +253,12 @@ static void BmpDrawToolsTest() {
 	endPoint = {19, 39};
 	BmpDrawLine(bmp, startPoint, endPoint, rgb);
 	bmp.Save(DIR "draw_line_19_0_19_39.bmp");
+
+	bmp.Init(400, 400);
+	startPoint = {399, 0};
+	endPoint = {199, 399};
+	BmpDrawLine(bmp, startPoint, endPoint, rgb);
+	bmp.Save(DIR "draw_line_399_0_199_399.bmp");	
 
 	bmp.Init(41, 41);
 	std::vector<TPoint> polygonPoints;

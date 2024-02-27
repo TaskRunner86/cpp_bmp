@@ -230,7 +230,7 @@ std::vector<TPoint> BmpGetCirclePoint(const TPoint& centerPoint, U32 radius) {
 		}
 		pointVec.push_back(symPoint);
 	}
-
+	
 	return pointVec;
 }
 
@@ -301,6 +301,7 @@ static std::vector<TPoint> BmpDrawGetSectorPoint(U32 radius) {
 			}
 		}
 	}
+
 	return pointVec;
 }
 
