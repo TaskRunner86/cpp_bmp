@@ -134,10 +134,10 @@ std::vector<TPoint> BmpGetLinePoint(const TPoint& start, const TPoint& end) {
 			double grad = ((double)rightPoint.y - leftPoint.y) / 
 				((double)rightPoint.x - leftPoint.x);
 			
-			linePoint.y = leftPoint.y + (i - leftPoint.x) * grad;
+			linePoint.y = round(leftPoint.y + (i - leftPoint.x) * grad);
 			pointVec.push_back(linePoint);
 
-			U32 nextY = leftPoint.y + (i + 1 - leftPoint.x) * grad;
+			U32 nextY = round(leftPoint.y + (i + 1 - leftPoint.x) * grad);
 			U32 j = linePoint.y;
 			while ((j + 1) < nextY) {
 				++linePoint.y;
@@ -150,10 +150,10 @@ std::vector<TPoint> BmpGetLinePoint(const TPoint& start, const TPoint& end) {
 			double grad = ((double)leftPoint.y - rightPoint.y) / 
 				((double)rightPoint.x - leftPoint.x);
 
-			linePoint.y = leftPoint.y - (i - leftPoint.x) * grad;
+			linePoint.y = round(leftPoint.y - (i - leftPoint.x) * grad);
 			pointVec.push_back(linePoint);
 
-			U32 nextY = leftPoint.y - (i + 1 - leftPoint.x) * grad;
+			U32 nextY = round(leftPoint.y - (i + 1 - leftPoint.x) * grad);
 			U32 j = linePoint.y;
 			while ((nextY + 1) < j) {
 				--linePoint.y;
@@ -288,14 +288,14 @@ static std::vector<TPoint> BmpDrawGetSectorPoint(U32 radius) {
 	for (U32 i = 0; i <= radius; ++i) {
 		TPoint circlePoint = {0, 0};
 		circlePoint.x = i;
-		U32 firstY = sqrt(radius * radius - circlePoint.x * circlePoint.x);
+		U32 firstY = round(sqrt(radius * radius - circlePoint.x * circlePoint.x));
 		circlePoint.y = firstY;
 		pointVec.push_back(circlePoint);
 
 		if (i < radius) {
-			U32 nextY = sqrt(radius * radius - (i + 1) * (i + 1));
+			U32 nextY = round(sqrt(radius * radius - (i + 1) * (i + 1)));
 		
-			for (U32 j = 1; j < (firstY - nextY); ++j) {
+			for (U32 j = 1; j < (firstY- nextY); ++j) {
 				--circlePoint.y;
 				pointVec.push_back(circlePoint);
 			}

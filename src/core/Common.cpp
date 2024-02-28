@@ -52,7 +52,7 @@ int GetRandomMod(double num, int modPercent) {
 //
 //------------------------------------------------------------------------------
 int GetRandomInt(int num) {
-	return int(GetRandomDouble(num));
+	return int(GetRandomDouble(num) - 0.000001);
 }
 
 
