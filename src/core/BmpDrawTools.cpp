@@ -21,6 +21,13 @@
 
 
 //******************************************************************************
+// macro
+//******************************************************************************
+
+#define BMP_DRAW_MOVE_RATE (0.3)
+
+
+//******************************************************************************
 // declaration of function
 //******************************************************************************
 
@@ -294,9 +301,14 @@ static std::vector<TPoint> BmpDrawGetSectorPoint(U32 radius) {
 
 		if (i < radius) {
 			U32 nextY = round(sqrt(radius * radius - (i + 1) * (i + 1)));
-			++circlePoint.x;
 
-			for (U32 j = 1; j < (firstY- nextY); ++j) {
+			bool isMove = false;
+			for (U32 j = 1; j < (firstY - nextY); ++j) {
+				if ((firstY - nextY) * BMP_DRAW_MOVE_RATE < j && !isMove) {
+					++circlePoint.x;
+					isMove = true;
+				}
+
 				--circlePoint.y;
 				pointVec.push_back(circlePoint);
 			}
