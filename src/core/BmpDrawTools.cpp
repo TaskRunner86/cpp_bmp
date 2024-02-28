@@ -318,7 +318,7 @@ static bool BmpDrawIsSectorXMove(const TPoint& curPoint, const TPoint& lastPoint
 	bool isMove = false;
 	double grad = ((double)curPoint.y - lastPoint.y) / 
 		((double)lastPoint.x - curPoint.x);
-	if (1 < grad) {
+	if (2 < grad) {
 		isMove = true;
 	} else {
 		isMove = false;
