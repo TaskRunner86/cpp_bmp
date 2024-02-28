@@ -25,6 +25,7 @@
 //******************************************************************************
 
 static std::vector<TPoint> BmpDrawGetSectorPoint(U32 radius);
+static bool BmpDrawIsSectorXMove(const TPoint& curPoint, const TPoint& lastPoint);
 static std::vector<TPoint> BmpDrawGetNeighborPoint(const TPoint& point,	U32 width, U32 height);
 static bool BmpDrawCheckPointValid(const CBmp& bmp, const TPoint& point);
 
@@ -294,7 +295,11 @@ static std::vector<TPoint> BmpDrawGetSectorPoint(U32 radius) {
 
 		if (i < radius) {
 			U32 nextY = round(sqrt(radius * radius - (i + 1) * (i + 1)));
-		
+
+			if (BmpDrawIsSectorXMove(circlePoint, {radius, 0})) {
+				++circlePoint.x;
+			}
+
 			for (U32 j = 1; j < (firstY- nextY); ++j) {
 				--circlePoint.y;
 				pointVec.push_back(circlePoint);
@@ -303,6 +308,22 @@ static std::vector<TPoint> BmpDrawGetSectorPoint(U32 radius) {
 	}
 
 	return pointVec;
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static bool BmpDrawIsSectorXMove(const TPoint& curPoint, const TPoint& lastPoint) {
+	bool isMove = false;
+	double grad = ((double)curPoint.y - lastPoint.y) / 
+		((double)lastPoint.x - curPoint.x);
+	if (1 < grad) {
+		isMove = true;
+	} else {
+		isMove = false;
+	}
+	return isMove;
 }
 
 
