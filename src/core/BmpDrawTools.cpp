@@ -21,17 +21,11 @@
 
 
 //******************************************************************************
-// macro
-//******************************************************************************
-
-#define BMP_DRAW_MOVE_RATE (0.4)
-
-
-//******************************************************************************
 // declaration of function
 //******************************************************************************
 
 static std::vector<TPoint> BmpDrawGetSectorPoint(U32 radius);
+static bool BmpDrawIsSectorXMove(const TPoint& curPoint, U32 radius);
 static std::vector<TPoint> BmpDrawGetNeighborPoint(const TPoint& point,	U32 width, U32 height);
 static bool BmpDrawCheckPointValid(const CBmp& bmp, const TPoint& point);
 
@@ -303,12 +297,11 @@ static std::vector<TPoint> BmpDrawGetSectorPoint(U32 radius) {
 			U32 nextY = round(sqrt(radius * radius - (i + 1) * (i + 1)));
 
 			bool isMove = false;
-			for (U32 j = 1; j < (firstY - nextY); ++j) {
-				if ((firstY - nextY) * BMP_DRAW_MOVE_RATE < j && !isMove) {
+			for (U32 j = 1; j < (firstY- nextY); ++j) {
+				if (BmpDrawIsSectorXMove(circlePoint, radius) && !isMove) {
 					++circlePoint.x;
 					isMove = true;
 				}
-
 				--circlePoint.y;
 				pointVec.push_back(circlePoint);
 			}
@@ -316,6 +309,24 @@ static std::vector<TPoint> BmpDrawGetSectorPoint(U32 radius) {
 	}
 
 	return pointVec;
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static bool BmpDrawIsSectorXMove(const TPoint& curPoint, U32 radius) {
+	bool isMove = false;
+	double distDown = sqrt(curPoint.x * curPoint.x + 
+		(curPoint.y - 1) * (curPoint.y - 1)); 
+	double distLeftDown = sqrt((curPoint.x + 1) * (curPoint.x + 1) + 
+		(curPoint.y - 1) * (curPoint.y - 1)); 
+	if (abs(distDown - radius) < abs(distLeftDown - radius)) {
+		isMove = false;
+	} else {
+		isMove = true;
+	}
+	return isMove;
 }
 
 
