@@ -319,9 +319,9 @@ static bool BmpDrawIsSectorXMove(const TPoint& curPoint, U32 radius) {
 	bool isMove = false;
 	double distDown = sqrt(curPoint.x * curPoint.x + 
 		(curPoint.y - 1) * (curPoint.y - 1)); 
-	double distLeftDown = sqrt((curPoint.x + 1) * (curPoint.x + 1) + 
+	double distRightDown = sqrt((curPoint.x + 1) * (curPoint.x + 1) + 
 		(curPoint.y - 1) * (curPoint.y - 1)); 
-	if (abs(distDown - radius) < abs(distLeftDown - radius)) {
+	if (abs(distDown - radius) < abs(distRightDown - radius)) {
 		isMove = false;
 	} else {
 		isMove = true;
