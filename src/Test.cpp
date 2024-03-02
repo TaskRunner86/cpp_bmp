@@ -266,6 +266,33 @@ static void BmpDrawToolsTest() {
 	polygonPoints.push_back({40, 0});
 	polygonPoints.push_back({20, 40});
 	BmpDrawPolygon(bmp, polygonPoints, rgb);
+	bmp.Save(DIR "draw_polygon_3.bmp");
+
+	bmp.Init(41, 41);
+	polygonPoints.clear();
+	polygonPoints.push_back({1, 1});
+	polygonPoints.push_back({39, 1});
+	polygonPoints.push_back({39, 39});
+	polygonPoints.push_back({1, 39});
+	BmpDrawPolygon(bmp, polygonPoints, rgb);
+	bmp.Save(DIR "draw_polygon_4.bmp");	
+
+	bmp.Init(100, 100);
+	polygonPoints.clear();
+	polygonPoints.push_back({20, 0});
+	polygonPoints.push_back({80, 0});
+	polygonPoints.push_back({99, 60});
+	polygonPoints.push_back({50, 99});
+	polygonPoints.push_back({0, 60});
+	BmpDrawPolygon(bmp, polygonPoints, rgb);
+	bmp.Save(DIR "draw_polygon_5.bmp");	
+
+	bmp.Init(41, 41);
+	polygonPoints.clear();
+	polygonPoints.push_back({0, 0});
+	polygonPoints.push_back({40, 0});
+	polygonPoints.push_back({20, 40});
+	BmpDrawPolygon(bmp, polygonPoints, rgb);
 	std::vector<TPoint> polygonBorder = BmpGetPolygonPoint(polygonPoints);
 	std::vector<TPoint> areaPoints = BmpGetAreaPoint(polygonBorder, {20, 20}, bmp.GetWidth(), bmp.GetHeight());
 	

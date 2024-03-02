@@ -30,7 +30,7 @@
 //******************************************************************************
 
 static void BmpDrawX();
-
+static void BmpDrawOOOOO();
 
 //******************************************************************************
 // definition of function
@@ -41,6 +41,7 @@ static void BmpDrawX();
 //------------------------------------------------------------------------------
 int main(int argc, char *argv[]) {
 	BmpDrawX();
+	BmpDrawOOOOO();	
 	return 0;
 }
 
@@ -68,3 +69,35 @@ static void BmpDrawX() {
 	bmp.Save(DIR "draw_X.bmp");	
 }
 
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpDrawOOOOO() {
+	CBmp bmp;
+	bmp.Init(800, 200);
+	TRGB rgb = {0xFF, 0xFF, 0xFF};	
+
+	TPoint centerPoint = {100, 100};
+	U32 radius = 90;
+	BmpDrawCircle(bmp, centerPoint, radius, rgb);
+
+	centerPoint = {250, 100};
+	radius = 90;
+	BmpDrawCircle(bmp, centerPoint, radius, rgb);
+
+	centerPoint = {400, 100};
+	radius = 90;
+	BmpDrawCircle(bmp, centerPoint, radius, rgb);	
+
+	centerPoint = {550, 100};
+	radius = 90;
+	BmpDrawCircle(bmp, centerPoint, radius, rgb);	
+
+	centerPoint = {700, 100};
+	radius = 90;
+	BmpDrawCircle(bmp, centerPoint, radius, rgb);
+
+	bmp.Save(DIR "draw_OOOOO.bmp");
+}
