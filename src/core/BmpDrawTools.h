@@ -21,30 +21,7 @@
 
 #include <vector>
 #include "Bmp.h"
-
-
-//******************************************************************************
-// definition of type
-//******************************************************************************
-
-typedef struct TagPoint {
-	bool operator < (const TagPoint& point) const{
-		if (this->x != point.x) {
-			return this->x < point.x;
-		}
-		return this->y < point.y;
-	}
-
-	bool operator == (const TagPoint& point) const{
-		if (this->x == point.x && this->y == point.y) {
-			return true;
-		}
-		return false;
-	}	
-
-	U32 x;
-	U32 y;
-} TPoint;
+#include "Point.h"
 
 
 //******************************************************************************

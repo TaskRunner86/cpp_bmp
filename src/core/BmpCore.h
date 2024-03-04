@@ -20,8 +20,9 @@
 
 
 #include "Bmp.h"
-#include "BmpTools.h"
+#include "Point.h"
 #include "BmpDrawTools.h"
+#include "BmpTools.h"
 
 
 #endif // __BMP_CORE_H__
