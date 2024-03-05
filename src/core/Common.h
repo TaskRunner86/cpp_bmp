@@ -43,8 +43,6 @@ typedef signed long long S64;
 // declaration of function
 //******************************************************************************
 
-int GetRandom();
-int GetRandomMod(double num, int modPercent);
-int GetRandomInt(int num);
+U32 CpGetRandU32(U32 num);
 double GetRandomDouble(double num);
 

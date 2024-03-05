@@ -311,7 +311,7 @@ static void BmpDrawToolsTest() {
 	polygonBorder = BmpGetPolygonPoint(polygonPoints);
 	polygonBorder.pop_back();
 	polygonBorder.pop_back();
-	areaPoints = BmpGetAreaPoint(polygonBorder, {20, 20}, bmp.GetWidth(), bmp.GetHeight());
+	areaPoints = BmpGetAreaPoint(polygonBorder, {10, 10}, bmp.GetWidth(), bmp.GetHeight());
 	for (U32 i = 0; i < areaPoints.size(); ++i) {
 		BmpDrawPoint(bmp, areaPoints[i], {0, 0x8f, 0xff});
 	}
@@ -359,12 +359,12 @@ static void BmpDrawToolsTest() {
 	centerPoint = {20, 20};
 	radius = 20;
 	BmpDrawCircle(bmp, centerPoint, radius, rgb);
-	std::vector<TPoint> CircleBorder = BmpGetCirclePoint(centerPoint, radius);
-	areaPoints = BmpGetAreaPoint(CircleBorder, centerPoint, bmp.GetWidth(), bmp.GetHeight());
+	std::vector<TPoint> circleBorder = BmpGetCirclePoint(centerPoint, radius);
+	areaPoints = BmpGetAreaPoint(circleBorder, centerPoint, bmp.GetWidth(), bmp.GetHeight());
 	
 	for (U32 i = 0; i < areaPoints.size(); ++i) {
 		BmpDrawPoint(bmp, areaPoints[i], {0, 0x8f, 0xff});
 	}
-	bmp.Save(DIR "draw_circle_area.bmp");				
+	bmp.Save(DIR "draw_circle_area.bmp");
 }
 

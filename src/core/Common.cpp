@@ -26,33 +26,14 @@
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-int GetRandom() {
+U32 CpGetRandU32(U32 num) {
 	static bool isSeek = false;
+
 	if (isSeek == false) {
 		srand((unsigned) time(NULL));
 		isSeek = true;
 	}
-	return rand();
-}
-
-
-//------------------------------------------------------------------------------
-//
-//------------------------------------------------------------------------------
-int GetRandomMod(double num, int modPercent) {
-	int randInt = GetRandomInt(modPercent * 2);
-	randInt -= modPercent;
-
-	int ret = num * (100 + randInt) / 100;
-	return ret;
-}
-
-
-//------------------------------------------------------------------------------
-//
-//------------------------------------------------------------------------------
-int GetRandomInt(int num) {
-	return int(GetRandomDouble(num) - 0.000001);
+	return rand() % (num + 1);
 }
 
 
@@ -63,6 +44,6 @@ double GetRandomDouble(double num) {
 	if (num <= 0) {
 		return 0;
 	}
-	return ((double)GetRandom()/RAND_MAX) * num;
+	return ((double)CpGetRandU32(RAND_MAX) / RAND_MAX) * num;
 }
 
