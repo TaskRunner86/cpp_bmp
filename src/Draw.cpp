@@ -170,6 +170,8 @@ static void BmpDrawSmile() {
 	mouthBorder.insert(mouthBorder.end(), 
 		linePoint.begin(), linePoint.end());
 
+	BmpDrawPoints(bmp, mouthBorder, rgb);
+
 	areaPoints = BmpGetAreaPoint(mouthBorder,
 		{100, 32}, bmp.GetWidth(), bmp.GetHeight());	
 
