@@ -52,6 +52,16 @@ void BmpDrawPoint(CBmp& bmp, const TPoint& point, const TRGB& rgb) {
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
+void BmpDrawPoints(CBmp& bmp, std::vector<TPoint> pointVec, const TRGB& rgb) {
+	for (U32 i = 0; i < pointVec.size(); ++i) {
+		BmpDrawPoint(bmp, pointVec[i], rgb);
+	}
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
 void BmpDrawLine(CBmp& bmp, const TPoint& start, const TPoint& end, const TRGB& rgb) {
 	std::vector<TPoint> pointVec = BmpGetLinePoint(start, end);
 
