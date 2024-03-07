@@ -113,7 +113,7 @@ static void BmpDrawSmile() {
 	bmp.Init(201, 201);
 
 	for (U32 i = 0; i < bmp.GetHeight(); ++i) {
-		for (U32 j = 0; j < bmp.GetHeight(); ++j) {
+		for (U32 j = 0; j < bmp.GetWidth(); ++j) {
 			BmpDrawPoint(bmp, {j, i}, {255, 255, 255});
 		}
 	}
