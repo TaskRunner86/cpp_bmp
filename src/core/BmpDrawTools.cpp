@@ -65,9 +65,7 @@ void BmpDrawPoints(CBmp& bmp, std::vector<TPoint> pointVec, const TRGB& rgb) {
 void BmpDrawLine(CBmp& bmp, const TPoint& start, const TPoint& end, const TRGB& rgb) {
 	std::vector<TPoint> pointVec = BmpGetLinePoint(start, end);
 
-	for (U32 i = 0; i < pointVec.size(); ++i) {
-		BmpDrawPoint(bmp, pointVec[i], rgb);
-	}
+	BmpDrawPoints(bmp, pointVec, rgb);
 }
 
 
@@ -77,9 +75,7 @@ void BmpDrawLine(CBmp& bmp, const TPoint& start, const TPoint& end, const TRGB& 
 void BmpDrawPolygon(CBmp& bmp, std::vector<TPoint> pointVec, const TRGB& rgb) {
 	std::vector<TPoint> polygonBorder = BmpGetPolygonPoint(pointVec);
 
-	for (U32 i = 0; i < polygonBorder.size(); ++i) {
-		BmpDrawPoint(bmp, polygonBorder[i], rgb);
-	}
+	BmpDrawPoints(bmp, polygonBorder, rgb);
 }
 
 
@@ -92,10 +88,21 @@ void BmpDrawCircle(CBmp& bmp, const TPoint& centerPoint, U32 radius, const TRGB&
 	}
 
 	std::vector<TPoint> pointVec = BmpGetCirclePoint(centerPoint, radius);
-	
-	for (U32 i = 0; i < pointVec.size(); ++i) {
-		BmpDrawPoint(bmp, pointVec[i], rgb);
-	}
+	BmpDrawPoints(bmp, pointVec, rgb);
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+void BmpDrawArea(
+	CBmp& bmp,
+	std::vector<TPoint> border,
+	const TPoint& inAreaPoint,
+	const TRGB& rgb
+) {
+	std::vector<TPoint> pointVec = BmpGetAreaPoint(border, inAreaPoint, bmp.GetWidth(), bmp.GetHeight());
+	BmpDrawPoints(bmp, pointVec, rgb);
 }
 
 
@@ -343,7 +350,11 @@ static bool BmpDrawIsSectorXMove(const TPoint& curPoint, U32 radius) {
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-static std::vector<TPoint> BmpDrawGetNeighborPoint(const TPoint& point, U32 width, U32 height) {
+static std::vector<TPoint> BmpDrawGetNeighborPoint(
+	const TPoint& point,
+	U32 width,
+	U32 height
+) {
 	std::vector<TPoint> neighborPointVec;
 	if ((point.y + 1) != height) {
 		TPoint neighborPoint;

@@ -33,6 +33,8 @@ void BmpDrawPoints(CBmp& bmp, std::vector<TPoint> pointVec, const TRGB& rgb);
 void BmpDrawLine(CBmp& bmp, const TPoint& start, const TPoint& end, const TRGB& rgb);
 void BmpDrawPolygon(CBmp& bmp, std::vector<TPoint> pointVec, const TRGB& rgb);
 void BmpDrawCircle(CBmp& bmp, const TPoint& centerPoint, U32 radius, const TRGB& rgb);
+void BmpDrawArea(CBmp& bmp, std::vector<TPoint> border,
+	const TPoint& inAreaPoint, const TRGB& rgb);
 
 std::vector<TPoint> BmpGetLinePoint(const TPoint& start, const TPoint& end);
 std::vector<TPoint> BmpGetPolygonPoint(std::vector<TPoint> pointVec);

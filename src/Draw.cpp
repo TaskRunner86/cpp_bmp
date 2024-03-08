@@ -123,25 +123,19 @@ static void BmpDrawSmile() {
 	TRGB rgb = {14, 193, 255};
 	BmpDrawCircle(bmp, centerPoint, radius, rgb);
 	std::vector<TPoint> circleBorder = BmpGetCirclePoint(centerPoint, radius);
-	std::vector<TPoint> areaPoints = BmpGetAreaPoint(circleBorder,
-		centerPoint, bmp.GetWidth(), bmp.GetHeight());
-	BmpDrawPoints(bmp, areaPoints, rgb);
+	BmpDrawArea(bmp, circleBorder, centerPoint, rgb);
 
 	centerPoint = {70, 120};
 	radius = 15;
 	rgb = {0, 0, 0};
 	BmpDrawCircle(bmp, centerPoint, radius, rgb);
 	circleBorder = BmpGetCirclePoint(centerPoint, radius);
-	areaPoints = BmpGetAreaPoint(circleBorder,
-		centerPoint, bmp.GetWidth(), bmp.GetHeight());
-	BmpDrawPoints(bmp, areaPoints, rgb);
+	BmpDrawArea(bmp, circleBorder, centerPoint, rgb);
 
 	centerPoint = {130, 120};
 	BmpDrawCircle(bmp, centerPoint, radius, rgb);	
 	circleBorder = BmpGetCirclePoint(centerPoint, radius);
-	areaPoints = BmpGetAreaPoint(circleBorder,
-		centerPoint, bmp.GetWidth(), bmp.GetHeight());	
-	BmpDrawPoints(bmp, areaPoints, rgb);
+	BmpDrawArea(bmp, circleBorder, centerPoint, rgb);
 
 	centerPoint = {100, 100};
 	radius = 70;	
@@ -171,11 +165,7 @@ static void BmpDrawSmile() {
 		linePoint.begin(), linePoint.end());
 
 	BmpDrawPoints(bmp, mouthBorder, rgb);
-
-	areaPoints = BmpGetAreaPoint(mouthBorder,
-		{100, 32}, bmp.GetWidth(), bmp.GetHeight());	
-
-	BmpDrawPoints(bmp, areaPoints, rgb);
+	BmpDrawArea(bmp, mouthBorder, {100, 32}, rgb);
 
 	bmp.Save(DIR "draw_smile.bmp");
 }
