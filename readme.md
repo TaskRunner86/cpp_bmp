@@ -7,7 +7,8 @@
 - src/core文件夹为bmp类和相关的操作 是各个应用的公用代码
 - Test.cpp为单元测试
 - Tool.cpp为应用工具
-- Draw.cpp为画图实例
+- Draw.cpp为画图应用
+- CalcPi.cpp为计算π的应用
 - bmp文件夹存放图片
 
 需要增加自己应用的同学，可以修改CMakeLists.txt添加新的目标，也可以直接修改Tool.cpp。

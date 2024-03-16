@@ -21,5 +21,6 @@ add_definitions(-D UU)
 add_executable(Test ${CORE_SRC} ./src/Test.cpp)
 add_executable(Tool ${CORE_SRC} ./src/Tool.cpp)
 add_executable(Draw ${CORE_SRC} ./src/Draw.cpp)
+add_executable(CalcPi ${CORE_SRC} ./src/CalcPi.cpp)
 
 message(STATUS "cpp bmp end")
