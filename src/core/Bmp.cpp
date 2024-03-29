@@ -105,7 +105,8 @@ void CBmp::Init(U32 width, U32 height) {
 	m_lineByte = CalcLineByte(width, BI_BITCOUNT_VAL);
 
 	m_fileHdr.bfType = BF_TYPE_VAL;
-	m_fileHdr.bfSize = sizeof(TBitmapFileHdr) + sizeof(TBitmapInfoHdr) + colorTableSize + m_lineByte * height;
+	m_fileHdr.bfSize = sizeof(TBitmapFileHdr) + sizeof(TBitmapInfoHdr) + 
+		colorTableSize + m_lineByte * height;
 	m_fileHdr.bfReserved1 = 0;
 	m_fileHdr.bfReserved2 = 0;
 	m_fileHdr.bfOffBits = BF_OFFBITS_VAL + colorTableSize;

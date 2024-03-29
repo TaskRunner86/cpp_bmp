@@ -20,11 +20,16 @@
 
 
 #include "Bmp.h"
+#include "BmpDrawTools.h"
 
 
 //******************************************************************************
 // declaration of function
 //******************************************************************************
+
+CBmp BmpCopy(CBmp& bmp, TPoint initPoint, U32 width, U32 height);
+CBmp BmpCut(CBmp& bmp, TPoint initPoint, U32 width, U32 height, const TRGB& background);
+void BmpPaste(CBmp& bottomBmp, CBmp& topBmp, TPoint initPoint);
 
 void BmpResize(CBmp& bmp, U32 width, U32 height);
 

@@ -16,7 +16,6 @@
 
 
 #include "BmpTools.h"
-#include "BmpDrawTools.h"
 
 
 //******************************************************************************
@@ -36,6 +35,87 @@ static U32 BmpCalcAvgColor(const CBmp& bmp);
 //******************************************************************************
 // definition of function
 //******************************************************************************
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+CBmp BmpCopy(CBmp& bmp, TPoint initPoint, U32 width, U32 height) {
+	CBmp newBmp;
+	newBmp.Init(width, height);
+
+	for (U32 i = 0; i < width; ++i) {
+		for (U32 j = 0; j < height; ++j) {
+			if (bmp.GetWidth() <= (initPoint.x + i) ||
+				bmp.GetHeight() <= (initPoint.y + j)) {
+				continue;
+			}
+
+			TRGB* pRGB = bmp.GetRGB(initPoint.x + i, initPoint.y + j);
+			TRGB* pNewRGB = newBmp.GetRGB(i, j);
+
+			pNewRGB->red = pRGB->red;
+			pNewRGB->green = pRGB->green;
+			pNewRGB->blue = pRGB->blue;
+		}
+	}
+
+	return newBmp;
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+CBmp BmpCut(CBmp& bmp, TPoint initPoint, U32 width,
+	U32 height, const TRGB& background) {
+	CBmp newBmp;
+	newBmp.Init(width, height);
+
+	for (U32 i = 0; i < width; ++i) {
+		for (U32 j = 0; j < height; ++j) {
+			if (bmp.GetWidth() <= (initPoint.x + i) ||
+				bmp.GetHeight() <= (initPoint.y + j)) {
+				continue;
+			}
+
+			TRGB* pRGB = bmp.GetRGB(initPoint.x + i, initPoint.y + j);
+			TRGB* pNewRGB = newBmp.GetRGB(i, j);
+
+			pNewRGB->red = pRGB->red;
+			pNewRGB->green = pRGB->green;
+			pNewRGB->blue = pRGB->blue;
+
+			pRGB->red = background.red;
+			pRGB->green = background.green;
+			pRGB->blue = background.blue;
+		}
+	}
+
+	return newBmp;
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+void BmpPaste(CBmp& bottomBmp, CBmp& topBmp, TPoint initPoint) {
+	for (U32 i = 0; i < topBmp.GetWidth(); ++i) {
+		for (U32 j = 0; j < topBmp.GetHeight(); ++j) {
+			if (bottomBmp.GetWidth() <= (initPoint.x + i) ||
+				bottomBmp.GetHeight() <= (initPoint.y + j)) {
+				continue;
+			}
+
+			TRGB* pBottomRGB = bottomBmp.GetRGB(initPoint.x + i, initPoint.y + j);
+			TRGB* pTopRGB = topBmp.GetRGB(i, j);
+
+			pBottomRGB->red = pTopRGB->red;
+			pBottomRGB->green = pTopRGB->green;
+			pBottomRGB->blue = pTopRGB->blue;
+		}
+	}
+}
+
 
 //------------------------------------------------------------------------------
 //

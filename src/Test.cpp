@@ -29,8 +29,8 @@
 // declaration of function
 //******************************************************************************
 
-static void BmpToolsTest();
 static void BmpDrawToolsTest();
+static void BmpToolsTest();
 
 
 //******************************************************************************
@@ -41,119 +41,9 @@ static void BmpDrawToolsTest();
 //
 //------------------------------------------------------------------------------
 int main(int argc, char *argv[]) {
-	BmpToolsTest();
 	BmpDrawToolsTest();
+	BmpToolsTest();	
 	return 0;
-}
-
-
-//------------------------------------------------------------------------------
-//
-//------------------------------------------------------------------------------
-static void BmpToolsTest() {
-	CBmp bmp;
-	bmp.Load(DIR "raw.bmp");
-	bmp.Save(DIR "copy.bmp");
-
-	for (U32 i = 0; i < bmp.GetHeight(); ++i) {
-		if (i % 10 <= 3) {
-			for (U32 j = 0; j < bmp.GetWidth(); ++j) {
-				TRGB* pRGB = bmp.GetRGB(j, i);
-				memset(pRGB, 0, sizeof(TRGB));
-			}
-		}
-	}
-	bmp.Save(DIR "line.bmp");
-
-	bmp.Init(bmp.GetWidth(), bmp.GetHeight());
-	bmp.Save(DIR "new_black.bmp");
-
-	bmp.Load(DIR "raw.bmp");
-	BmpTransNoColor(bmp);
-	bmp.Save(DIR "no_color.bmp");
-
-	bmp.Load(DIR "raw.bmp");
-	BmpTransBlackWhite(bmp);
-	bmp.Save(DIR "black_white.bmp");
-
-	bmp.Load(DIR "raw.bmp");
-	BmpReverseColor(bmp);
-	bmp.Save(DIR "reverse_color.bmp");
-
-	bmp.Load(DIR "raw.bmp");
-	CBmp bmpNew = bmp;	
-	bmpNew.Save(DIR "copy_contruct.bmp");
-
-	bmp.Load(DIR "raw.bmp");
-	bmpNew = bmp;
-	bmpNew.Save(DIR "copy_assign.bmp");
-
-	bmp.Load(DIR "raw.bmp");
-	for (U32 i = 0; i < bmp.GetWidth(); ++i) {
-		for (U32 j = 0; j < bmp.GetHeight(); ++j) {
-			if (i % 10 <= 3 && j % 10 <= 3) {
-				TRGB* pRGB = bmp.GetRGB(i, j);
-				pRGB->red = 0x8f;
-			}
-
-			if (3 < i % 10 && i % 10 <= 6 &&
-				3 < j % 10 && j % 10 <= 6) {
-				TRGB* pRGB = bmp.GetRGB(i, j);
-				pRGB->green = 0x8f;
-			}
-
-			if (6 < i % 10 && 6 < j % 10) {
-				TRGB* pRGB = bmp.GetRGB(i, j);
-				pRGB->blue = 0x8f;
-			}
-		}
-	}
-	bmp.Save(DIR "RGB.bmp");
-
-	bmp.Load(DIR "raw.bmp");
-	for (U32 i = 0; i < bmp.GetWidth(); ++i) {
-		for (U32 j = 0; j < bmp.GetHeight(); ++j) {
-			if (i % 10 <= 5 && j % 10 <= 5) {
-				TRGB* pRGB = bmp.GetRGB(i, j);
-				pRGB->red = i;
-				pRGB->green = 0;
-				pRGB->blue = j;
-			}
-		}
-	}
-	bmp.Save(DIR "RGB_color.bmp");
-
-	bmp.Load(DIR "raw.bmp");
-	BmpResize(bmp, bmp.GetWidth() * 1.5, bmp.GetHeight() * 1.5);
-	bmp.Save(DIR "big.bmp");
-
-	bmp.Load(DIR "raw.bmp");
-	BmpResize(bmp, bmp.GetWidth() * 0.7, bmp.GetHeight() * 0.7);
-	bmp.Save(DIR "small.bmp");
-
-	bmp.Load(DIR "raw.bmp");
-	BmpResize(bmp, bmp.GetWidth() * 0.7, bmp.GetHeight() * 1.5);
-	bmp.Save(DIR "small_big.bmp");
-
-	bmp.Load(DIR "raw.bmp");
-	BmpResize(bmp, bmp.GetWidth() * 1.5, bmp.GetHeight() * 0.7);
-	bmp.Save(DIR "big_small.bmp");
-
-	bmp.Load(DIR "raw.bmp");
-	BmpAdjustBr(bmp, 50, true);
-	bmp.Save(DIR "add_50.bmp");
-
-	bmp.Load(DIR "raw.bmp");
-	BmpAdjustBr(bmp, 0xff, true);
-	bmp.Save(DIR "add_255.bmp");
-
-	bmp.Load(DIR "raw.bmp");
-	BmpAdjustBr(bmp, 50, false);
-	bmp.Save(DIR "sub_50.bmp");
-
-	bmp.Load(DIR "raw.bmp");
-	BmpAdjustBr(bmp, 0xff, false);
-	bmp.Save(DIR "sub_255.bmp");	
 }
 
 
@@ -355,5 +245,144 @@ static void BmpDrawToolsTest() {
 	std::vector<TPoint> circleBorder = BmpGetCirclePoint(centerPoint, radius);
 	BmpDrawArea(bmp, circleBorder, centerPoint, {0, 0x8f, 0xff});	
 	bmp.Save(DIR "draw_circle_area.bmp");
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpToolsTest() {
+	CBmp bmp;
+	bmp.Load(DIR "raw.bmp");
+	bmp.Save(DIR "copy.bmp");
+
+	bmp.Init(bmp.GetWidth(), bmp.GetHeight());
+	bmp.Save(DIR "new_black.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	CBmp bmpNew = bmp;	
+	bmpNew.Save(DIR "copy_contruct.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	bmpNew = bmp;
+	bmpNew.Save(DIR "copy_assign.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	for (U32 i = 0; i < bmp.GetHeight(); ++i) {
+		if (i % 10 <= 3) {
+			for (U32 j = 0; j < bmp.GetWidth(); ++j) {
+				TRGB* pRGB = bmp.GetRGB(j, i);
+				memset(pRGB, 0, sizeof(TRGB));
+			}
+		}
+	}
+	bmp.Save(DIR "line.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	for (U32 i = 0; i < bmp.GetWidth(); ++i) {
+		for (U32 j = 0; j < bmp.GetHeight(); ++j) {
+			if (i % 10 <= 3 && j % 10 <= 3) {
+				TRGB* pRGB = bmp.GetRGB(i, j);
+				pRGB->red = 0x8f;
+			}
+
+			if (3 < i % 10 && i % 10 <= 6 &&
+				3 < j % 10 && j % 10 <= 6) {
+				TRGB* pRGB = bmp.GetRGB(i, j);
+				pRGB->green = 0x8f;
+			}
+
+			if (6 < i % 10 && 6 < j % 10) {
+				TRGB* pRGB = bmp.GetRGB(i, j);
+				pRGB->blue = 0x8f;
+			}
+		}
+	}
+	bmp.Save(DIR "RGB.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	for (U32 i = 0; i < bmp.GetWidth(); ++i) {
+		for (U32 j = 0; j < bmp.GetHeight(); ++j) {
+			if (i % 10 <= 5 && j % 10 <= 5) {
+				TRGB* pRGB = bmp.GetRGB(i, j);
+				pRGB->red = i;
+				pRGB->green = 0;
+				pRGB->blue = j;
+			}
+		}
+	}
+	bmp.Save(DIR "RGB_color.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	CBmp newBmp = BmpCopy(bmp, {100, 100}, 100, 100);
+	newBmp.Save(DIR "copy_100_100.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	newBmp = BmpCopy(bmp, {100, 100}, 1000, 1000);
+	newBmp.Save(DIR "copy_1000_1000.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	newBmp = BmpCut(bmp, {100, 100}, 100, 100, {0, 0, 0});
+	bmp.Save(DIR "cutsrc_100_100.bmp");	
+	newBmp.Save(DIR "cutdst_100_100.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	newBmp = BmpCut(bmp, {100, 100}, 1000, 1000, {0, 0, 0});
+	bmp.Save(DIR "cutsrc_1000_1000.bmp");	
+	newBmp.Save(DIR "cutdst_1000_1000.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	newBmp.Init(100, 100);
+	BmpPaste(bmp, newBmp, {100, 100});
+	bmp.Save(DIR "Paste_100_100.bmp");	
+
+	bmp.Load(DIR "raw.bmp");
+	newBmp.Init(1000, 1000);
+	BmpPaste(bmp, newBmp, {100, 100});
+	bmp.Save(DIR "Paste_1000_1000.bmp");	
+
+	bmp.Load(DIR "raw.bmp");
+	BmpResize(bmp, bmp.GetWidth() * 1.5, bmp.GetHeight() * 1.5);
+	bmp.Save(DIR "big.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	BmpResize(bmp, bmp.GetWidth() * 0.7, bmp.GetHeight() * 0.7);
+	bmp.Save(DIR "small.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	BmpResize(bmp, bmp.GetWidth() * 0.7, bmp.GetHeight() * 1.5);
+	bmp.Save(DIR "small_big.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	BmpResize(bmp, bmp.GetWidth() * 1.5, bmp.GetHeight() * 0.7);
+	bmp.Save(DIR "big_small.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	BmpTransNoColor(bmp);
+	bmp.Save(DIR "no_color.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	BmpTransBlackWhite(bmp);
+	bmp.Save(DIR "black_white.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	BmpReverseColor(bmp);
+	bmp.Save(DIR "reverse_color.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	BmpAdjustBr(bmp, 50, true);
+	bmp.Save(DIR "add_50.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	BmpAdjustBr(bmp, 0xff, true);
+	bmp.Save(DIR "add_255.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	BmpAdjustBr(bmp, 50, false);
+	bmp.Save(DIR "sub_50.bmp");
+
+	bmp.Load(DIR "raw.bmp");
+	BmpAdjustBr(bmp, 0xff, false);
+	bmp.Save(DIR "sub_255.bmp");	
 }
 
