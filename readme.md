@@ -92,7 +92,9 @@ core目录里的代码是各个应用共用的，其他在src第一层目录里�
 【视频提取图片及图片合并视频（ffmpeg）】 https://www.bilibili.com/video/BV1eK421e7Rw/
 
 可执行压缩包下载：
+
 打开 https://github.com/BtbN/FFmpeg-Builds/releases
+
 下载 ffmpeg-master-latest-win64-gpl.zip
 
 视频提取图片命令：
