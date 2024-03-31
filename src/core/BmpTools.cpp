@@ -39,7 +39,7 @@ static U32 BmpCalcAvgColor(const CBmp& bmp);
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-CBmp BmpCopy(CBmp& bmp, TPoint initPoint, U32 width, U32 height) {
+CBmp BmpCopy(CBmp& bmp, const TPoint& initPoint, U32 width, U32 height) {
 	CBmp newBmp;
 	newBmp.Init(width, height);
 
@@ -66,7 +66,7 @@ CBmp BmpCopy(CBmp& bmp, TPoint initPoint, U32 width, U32 height) {
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-CBmp BmpCut(CBmp& bmp, TPoint initPoint, U32 width,
+CBmp BmpCut(CBmp& bmp, const TPoint& initPoint, U32 width,
 	U32 height, const TRGB& background) {
 	CBmp newBmp;
 	newBmp.Init(width, height);
@@ -98,7 +98,7 @@ CBmp BmpCut(CBmp& bmp, TPoint initPoint, U32 width,
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-void BmpPaste(CBmp& bottomBmp, CBmp& topBmp, TPoint initPoint) {
+void BmpPaste(CBmp& bottomBmp, const CBmp& topBmp, const TPoint& initPoint) {
 	for (U32 i = 0; i < topBmp.GetWidth(); ++i) {
 		for (U32 j = 0; j < topBmp.GetHeight(); ++j) {
 			if (bottomBmp.GetWidth() <= (initPoint.x + i) ||

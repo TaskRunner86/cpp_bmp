@@ -15,6 +15,7 @@
 **************************************************************************/
 
 
+#include <cmath>
 #include "BmpCore.h"
 
 
@@ -30,6 +31,18 @@
 //******************************************************************************
 
 static void Freefall();
+static void DrawFrame();
+
+
+//******************************************************************************
+// definition of global variable
+//******************************************************************************
+
+static double g_height = 300;
+static double g_v = 0;
+static const double g_g = (10 * 5) ;
+static const double g_deltaTime = (0.1);
+static U32 g_photoId = 1;
 
 
 //******************************************************************************
@@ -51,7 +64,43 @@ int main() {
 //
 //------------------------------------------------------------------------------
 static void Freefall() {
-	CBmp bmp;
+	for (U32 i = 0; i < 200; ++i) {
+		DrawFrame();
+	}
+}
 
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void DrawFrame() {
+	CBmp bmp;
+	bmp.Init(200, 400);
+
+	CBmp ballBmp;
+	ballBmp.Load(DIR "ball.bmp");
+
+	CBmp groundBmp;
+	groundBmp.Load(DIR "ground.bmp");
+
+	BmpPaste(bmp, groundBmp, {55, 20});
+
+	double deltaHeight = g_v * g_deltaTime;
+
+	if (0 < (g_height - deltaHeight)) {
+		g_v += (g_g * g_deltaTime);
+		g_height -= deltaHeight;
+	} else {
+		g_v = (-g_v * 0.9);
+	}
+
+	TPoint ballPoint = {95, 25};
+	ballPoint.y += g_height;
+	BmpPaste(bmp, ballBmp, ballPoint);
+
+	char bmpName[50];
+	sprintf_s(bmpName, sizeof(bmpName), DIR "%05d.bmp", g_photoId);
+	bmp.Save(bmpName);
+	++g_photoId;
 }
 

@@ -82,6 +82,16 @@ void BmpDrawPolygon(CBmp& bmp, std::vector<TPoint> pointVec, const TRGB& rgb) {
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
+void BmpDrawRect(CBmp& bmp, const TPoint& initPoint,
+	U32 width, U32 height, const TRGB& rgb) {
+	std::vector<TPoint> polygonBorder = BmpGetRectPoint(initPoint, width, height, rgb);
+	BmpDrawPoints(bmp, polygonBorder, rgb);
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
 void BmpDrawCircle(CBmp& bmp, const TPoint& centerPoint, U32 radius, const TRGB& rgb) {
 	if (radius == 0) {
 		return;
@@ -206,6 +216,31 @@ std::vector<TPoint> BmpGetPolygonPoint(std::vector<TPoint> pointVec) {
 
 	std::vector<TPoint> polygonPointVec(pointSet.begin(), pointSet.end());
 	return polygonPointVec;
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+std::vector<TPoint> BmpGetRectPoint(const TPoint& initPoint,
+	U32 width, U32 height, const TRGB& rgb) {
+	std::vector<TPoint> rectPointVec;
+	rectPointVec.push_back(initPoint);
+
+	TPoint otherPoint = initPoint;
+	otherPoint.x += (width - 1);
+	rectPointVec.push_back(otherPoint);
+
+	otherPoint = initPoint;
+	otherPoint.x += (width - 1);;
+	otherPoint.y += (height - 1);
+	rectPointVec.push_back(otherPoint);
+
+	otherPoint = initPoint;
+	otherPoint.y += (height - 1);
+	rectPointVec.push_back(otherPoint);
+
+	return BmpGetPolygonPoint(rectPointVec);
 }
 
 

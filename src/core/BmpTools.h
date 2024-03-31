@@ -27,9 +27,10 @@
 // declaration of function
 //******************************************************************************
 
-CBmp BmpCopy(CBmp& bmp, TPoint initPoint, U32 width, U32 height);
-CBmp BmpCut(CBmp& bmp, TPoint initPoint, U32 width, U32 height, const TRGB& background);
-void BmpPaste(CBmp& bottomBmp, CBmp& topBmp, TPoint initPoint);
+CBmp BmpCopy(CBmp& bmp, const TPoint& initPoint, U32 width, U32 height);
+CBmp BmpCut(CBmp& bmp, const TPoint& initPoint,
+	U32 width, U32 height, const TRGB& background);
+void BmpPaste(CBmp& bottomBmp, const CBmp& topBmp, const TPoint& initPoint);
 
 void BmpResize(CBmp& bmp, U32 width, U32 height);
 

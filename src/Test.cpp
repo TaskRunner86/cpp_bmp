@@ -214,6 +214,10 @@ static void BmpDrawToolsTest() {
 	BmpDrawPoints(bmp, areaPoints, {0, 0x8f, 0xff});
 	bmp.Save(DIR "draw_square_area.bmp");
 
+	bmp.Init(100, 100);
+	BmpDrawRect(bmp, {0, 0}, 100, 80, {0, 0x8f, 0xff});
+	bmp.Save(DIR "draw_Rect.bmp");
+
 	bmp.Init(101, 101);
 	TPoint centerPoint = {50, 50};
 	U32 radius = 40;
