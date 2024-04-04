@@ -49,5 +49,12 @@ typedef struct TagPoint {
 } TPoint;
 
 
+//******************************************************************************
+// declaration of function
+//******************************************************************************
+
+double PointCalcDist(const TPoint& pointA, const TPoint& pointB);
+
+
 #endif // __POINT_H__
 

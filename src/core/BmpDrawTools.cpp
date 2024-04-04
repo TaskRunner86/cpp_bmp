@@ -16,7 +16,6 @@
 
 
 #include "BmpDrawTools.h"
-#include <cmath>
 #include <set>
 
 
@@ -84,7 +83,7 @@ void BmpDrawPolygon(CBmp& bmp, std::vector<TPoint> pointVec, const TRGB& rgb) {
 //------------------------------------------------------------------------------
 void BmpDrawRect(CBmp& bmp, const TPoint& initPoint,
 	U32 width, U32 height, const TRGB& rgb) {
-	std::vector<TPoint> polygonBorder = BmpGetRectPoint(initPoint, width, height, rgb);
+	std::vector<TPoint> polygonBorder = BmpGetRectPoint(initPoint, width, height);
 	BmpDrawPoints(bmp, polygonBorder, rgb);
 }
 
@@ -223,7 +222,7 @@ std::vector<TPoint> BmpGetPolygonPoint(std::vector<TPoint> pointVec) {
 //
 //------------------------------------------------------------------------------
 std::vector<TPoint> BmpGetRectPoint(const TPoint& initPoint,
-	U32 width, U32 height, const TRGB& rgb) {
+	U32 width, U32 height) {
 	std::vector<TPoint> rectPointVec;
 	rectPointVec.push_back(initPoint);
 
@@ -232,7 +231,7 @@ std::vector<TPoint> BmpGetRectPoint(const TPoint& initPoint,
 	rectPointVec.push_back(otherPoint);
 
 	otherPoint = initPoint;
-	otherPoint.x += (width - 1);;
+	otherPoint.x += (width - 1);
 	otherPoint.y += (height - 1);
 	rectPointVec.push_back(otherPoint);
 
@@ -295,7 +294,7 @@ std::vector<TPoint> BmpGetAreaPoint(
 	std::vector<TPoint> border,
 	const TPoint& inAreaPoint,
 	U32 width,
-	U32 height	
+	U32 height
 ) {
 	std::set<TPoint> borderSet(border.begin(), border.end());
 	std::set<TPoint> areaPointSet;

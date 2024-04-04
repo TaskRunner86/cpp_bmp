@@ -2,11 +2,11 @@
 
 /**************************************************************************
 * *
-* * FILE NAME : CalcPi.cpp
+* * FILE NAME : BmpDrawPointSuite.cpp
 * *
-* * DESCRIPTION : CalcPi cpp file
+* * DESCRIPTION : BmpDrawPointSuite cpp file
 * *
-* * DATE : 2024-3-14
+* * DATE : 2024-4-2
 * *
 * * AUTHOR : TaskRunner
 * *
@@ -15,15 +15,24 @@
 **************************************************************************/
 
 
+#include "BmpDrawPointSuite.h"
 #include "BmpCore.h"
+
+
+//******************************************************************************
+// macro
+//******************************************************************************
+
+#define DIR_SRC "../bmp/test/Raw/"
+#define DIR_DST "../bmp/test/DrawPoint/"
 
 
 //******************************************************************************
 // declaration of function
 //******************************************************************************
 
-static void CalcPi(U32 radius);
-static double CalcPiAccuracy(double val);
+static void BmpDrawPointTest();
+static void BmpDrawPointsTest();
 
 
 //******************************************************************************
@@ -33,47 +42,37 @@ static double CalcPiAccuracy(double val);
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-int main(int argc, char *argv[]) {
-	for (U32 i = 1; i < 10; ++i) {
-		CalcPi(i);
-	}
-
-	for (U32 i = 10; i < 100; i += 10) {
-		CalcPi(i);
-	}
-
-	for (U32 i = 100; i < 1000; i += 100) {
-		CalcPi(i);
-	}	
-	return 0;
+void BmpDrawPointSuite() {
+	BmpDrawPointTest();
+	BmpDrawPointsTest();
 }
 
 
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-static void CalcPi(U32 radius) {
-	TPoint centerPoint = {1000, 1000};
-	std::vector<TPoint> circleBorder = BmpGetCirclePoint(centerPoint, radius);
-	std::vector<TPoint> areaPoints = BmpGetAreaPoint(circleBorder, centerPoint, 2001, 2001);
-
-	double pi = areaPoints.size() / (radius - 0.5) / (radius - 0.5);
-	// double pi = (double)areaPoints.size() / radius / radius;
-
-	printf("radius = %d    PI = %f    accuracy = %f%\n", radius, pi, CalcPiAccuracy(pi));
+static void BmpDrawPointTest() {
+	CBmp bmp;
+	bmp.Init(10, 10);
+	TPoint point;
+	point.x = 0;
+	point.y = 0;
+	TRGB rgb = {0xFF, 0xFF, 0xFF};
+	BmpDrawPoint(bmp, point, rgb);
+	bmp.Save(DIR_DST "draw_point.bmp");
 }
 
 
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-static double CalcPiAccuracy(double val) {
-	double ret = 0;
-	if (val < PI) {
-		ret = (val / PI) * 100;
-	} else {
-		ret = ((PI - (val - PI)) / PI) * 100;
-	}
-	return ret;
+static void BmpDrawPointsTest() {
+	CBmp bmp;
+	bmp.Init(10, 10);
+	TPoint startPoint = {0, 0};
+	TPoint endPoint = {9, 9};
+	TRGB rgb = {0xFF, 0xFF, 0xFF};
+	BmpDrawLine(bmp, startPoint, endPoint, rgb);
+	bmp.Save(DIR_DST "draw_points.bmp");
 }
 

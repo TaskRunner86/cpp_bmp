@@ -11,6 +11,9 @@ include_directories(./src/core)
 aux_source_directory(./src/core CORE_SRC)
 message(STATUS "Compile files " ${CORE_SRC})
 
+aux_source_directory(./src/test TEST_SRC)
+message(STATUS "Compile files " ${TEST_SRC})
+
 # 编译选项
 ADD_COMPILE_OPTIONS(-std=c++11)
 
@@ -18,7 +21,7 @@ ADD_COMPILE_OPTIONS(-std=c++11)
 add_definitions(-D UU)
 
 # 生成程序
-add_executable(Test ${CORE_SRC} ./src/Test.cpp)
+add_executable(Test ${CORE_SRC} ${TEST_SRC})
 add_executable(Tool ${CORE_SRC} ./src/Tool.cpp)
 add_executable(Draw ${CORE_SRC} ./src/Draw.cpp)
 add_executable(CalcPi ${CORE_SRC} ./src/CalcPi.cpp)

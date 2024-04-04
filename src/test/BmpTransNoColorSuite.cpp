@@ -2,11 +2,11 @@
 
 /**************************************************************************
 * *
-* * FILE NAME : Freefall.cpp
+* * FILE NAME : BmpTransNoColorSuite.cpp
 * *
-* * DESCRIPTION : Freefall cpp file
+* * DESCRIPTION : BmpTransNoColorSuite cpp file
 * *
-* * DATE : 2024-3-25
+* * DATE : 2024-4-2
 * *
 * * AUTHOR : TaskRunner
 * *
@@ -15,6 +15,7 @@
 **************************************************************************/
 
 
+#include "BmpTransNoColorSuite.h"
 #include "BmpCore.h"
 
 
@@ -22,27 +23,17 @@
 // macro
 //******************************************************************************
 
-#define DIR "../bmp/freefall/"
-
-#define GRA (10 * 5)
-#define DELTA_TIME (0.1)
+#define DIR_SRC "../bmp/test/Raw/"
+#define DIR_DST "../bmp/test/TransNoColor/"
 
 
 //******************************************************************************
 // declaration of function
 //******************************************************************************
 
-static void Freefall();
-static void DrawFrame();
-
-
-//******************************************************************************
-// definition of global variable
-//******************************************************************************
-
-static double g_height = 300;
-static double g_v = 0;
-static U32 g_photoId = 1;
+static void BmpTransNoColorTest();
+static void BmpTransBlackWhiteTest();
+static void BmpReverseColorTest();
 
 
 //******************************************************************************
@@ -52,55 +43,42 @@ static U32 g_photoId = 1;
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-int main() {
-	printf("start\n");
-	Freefall();
-	printf("end\n");	
-	return 0;
+void BmpTransNoColorSuite() {
+	BmpTransNoColorTest();
+	BmpTransBlackWhiteTest();
+	BmpReverseColorTest();
 }
 
 
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-static void Freefall() {
-	for (U32 i = 0; i < 200; ++i) {
-		DrawFrame();
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//
-//------------------------------------------------------------------------------
-static void DrawFrame() {
+static void BmpTransNoColorTest() {
 	CBmp bmp;
-	bmp.Init(200, 400);
+	bmp.Load(DIR_SRC "raw.bmp");
+	BmpTransNoColor(bmp);
+	bmp.Save(DIR_DST "no_color.bmp");
+}
 
-	CBmp ballBmp;
-	ballBmp.Load(DIR "ball.bmp");
 
-	CBmp groundBmp;
-	groundBmp.Load(DIR "ground.bmp");
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpTransBlackWhiteTest() {
+	CBmp bmp;
+	bmp.Load(DIR_SRC "raw.bmp");
+	BmpTransBlackWhite(bmp);
+	bmp.Save(DIR_DST "black_white.bmp");
+}
 
-	BmpPaste(bmp, groundBmp, {55, 20});
 
-	double deltaHeight = g_v * DELTA_TIME;
-
-	if (0 < (g_height - deltaHeight)) {
-		g_v += (GRA * DELTA_TIME);
-		g_height -= deltaHeight;
-	} else {
-		g_v = (-g_v * 0.9);
-	}
-
-	TPoint ballPoint = {95, 25};
-	ballPoint.y += g_height;
-	BmpPaste(bmp, ballBmp, ballPoint);
-
-	char bmpName[50];
-	sprintf_s(bmpName, sizeof(bmpName), DIR "%05d.bmp", g_photoId);
-	bmp.Save(bmpName);
-	++g_photoId;
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpReverseColorTest() {
+	CBmp bmp;
+	bmp.Load(DIR_SRC "raw.bmp");
+	BmpReverseColor(bmp);
+	bmp.Save(DIR_DST "reverse_color.bmp");
 }
 

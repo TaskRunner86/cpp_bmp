@@ -29,6 +29,10 @@
 // declaration of function
 //******************************************************************************
 
+static std::vector<TPoint> BmpGetRatotePoints(const TPoint& centerPoint,
+	double angle, const TPoint& initPoint, U32 width, U32 height);
+static U32 BmpCalcDistMax(const TPoint& centerPoint, 
+	const TPoint& initPoint, U32 width, U32 height);
 static U32 BmpCalcAvgColor(const CBmp& bmp);
 
 
@@ -142,6 +146,59 @@ void BmpResize(CBmp& bmp, U32 width, U32 height) {
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
+bool BmpRotatePoint(const TPoint& centerPoint,
+	double angle, const TPoint& srcPoint, TPoint& dstPoint) {
+
+	double relPointX = (double)srcPoint.x - centerPoint.x;
+	double relPointY = (double)srcPoint.y - centerPoint.y;
+
+	double rotateRelPointX = relPointX * cos(angle) + relPointY * sin(angle);
+	double rotateRelPointY = relPointX * (-sin(angle)) + relPointY * cos(angle);
+
+	if (round(rotateRelPointX + centerPoint.x) < 0 ||
+		round(rotateRelPointY + centerPoint.y) < 0) {
+		return false;
+	}
+
+	dstPoint.x = round(rotateRelPointX + centerPoint.x);
+	dstPoint.y = round(rotateRelPointY + centerPoint.y);
+	return true;
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+void BmpRotate(CBmp& bmp, const TPoint& centerPoint, double angle,
+	const TPoint& initPoint, U32 width, U32 height, const TRGB& background) {
+	CBmp rawBmp = bmp;
+	BmpCut(bmp, initPoint, width, height, background);
+
+	std::vector<TPoint> areaPointVec = BmpGetRatotePoints(
+		centerPoint, angle, initPoint, width, height);
+
+	TPoint srcPoint;
+	TPoint dstPoint;
+	for (U32 i = 0; i < areaPointVec.size(); ++i) {
+		srcPoint.x = areaPointVec[i].x;
+		srcPoint.y = areaPointVec[i].y;
+		if (!BmpRotatePoint(centerPoint, -angle, srcPoint, dstPoint)) {
+			continue;
+		}
+
+		TRGB* pRawRGB = rawBmp.GetRGB(dstPoint.x, dstPoint.y);
+		TRGB* pRGB = bmp.GetRGB(srcPoint.x, srcPoint.y);
+
+		pRGB->red = pRawRGB->red;
+		pRGB->green = pRawRGB->green;
+		pRGB->blue = pRawRGB->blue;
+	}
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
 void BmpTransNoColor(CBmp& bmp) {
 	for (U32 i = 0; i < bmp.GetWidth(); ++i) {
 		for (U32 j = 0; j < bmp.GetHeight(); ++j) {
@@ -241,6 +298,103 @@ void BmpAdjustBr(CBmp& bmp, U8 adjustVal, bool isAdd) {
 			}
 		}
 	}
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static std::vector<TPoint> BmpGetRatotePoints(const TPoint& centerPoint,
+	double angle, const TPoint& initPoint, U32 width, U32 height) {
+	double distMax = BmpCalcDistMax(centerPoint, initPoint, width, height);
+	TPoint moveCenterPoint;
+	moveCenterPoint.x = centerPoint.x + distMax;
+	moveCenterPoint.y = centerPoint.y + distMax;
+	
+	TPoint srcPoint;
+	TPoint dstPoint;
+	std::vector<TPoint> polygonPoints;
+
+	srcPoint.x = initPoint.x + distMax;
+	srcPoint.y = initPoint.y + distMax;
+	BmpRotatePoint(moveCenterPoint, angle, srcPoint, dstPoint);
+	polygonPoints.push_back(dstPoint);
+
+	srcPoint.x = initPoint.x + distMax + width;
+	srcPoint.y = initPoint.y + distMax;
+	BmpRotatePoint(moveCenterPoint, angle, srcPoint, dstPoint);
+	polygonPoints.push_back(dstPoint);
+
+	srcPoint.x = initPoint.x + distMax + width;
+	srcPoint.y = initPoint.y + distMax + height;
+	BmpRotatePoint(moveCenterPoint, angle, srcPoint, dstPoint);
+	polygonPoints.push_back(dstPoint);
+
+	srcPoint.x = initPoint.x + distMax;
+	srcPoint.y = initPoint.y + distMax + height;
+	BmpRotatePoint(moveCenterPoint, angle, srcPoint, dstPoint);
+	polygonPoints.push_back(dstPoint);
+
+	std::vector<TPoint> polygonBorder = BmpGetPolygonPoint(polygonPoints);
+
+	TPoint inAreaPointRaw;
+	inAreaPointRaw.x = initPoint.x + distMax + 1;
+	inAreaPointRaw.y = initPoint.y + distMax + 1;
+	TPoint inAreaPoint;
+	BmpRotatePoint(moveCenterPoint, angle, inAreaPointRaw, inAreaPoint);	
+
+	std::vector<TPoint> areaPointVec = BmpGetAreaPoint(polygonBorder, inAreaPoint,
+		moveCenterPoint.x + distMax, moveCenterPoint.y + distMax);
+	areaPointVec.insert(areaPointVec.end(), polygonBorder.begin(), polygonBorder.end());
+
+	std::vector<TPoint> retPoints;
+	for (U32 i = 0; i < areaPointVec.size(); ++i) {
+		if (areaPointVec[i].x < distMax ||
+			areaPointVec[i].y < distMax) {
+			continue;
+		}
+		TPoint retPoint;
+		retPoint.x = areaPointVec[i].x - distMax;
+		retPoint.y = areaPointVec[i].y - distMax;
+		retPoints.push_back(retPoint);
+	}
+
+	return retPoints;
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static U32 BmpCalcDistMax(const TPoint& centerPoint,
+	const TPoint& initPoint, U32 width, U32 height) {
+	std::vector<TPoint> polygonPoints;
+	TPoint polygonPoint;
+
+	polygonPoint.x = initPoint.x;
+	polygonPoint.y = initPoint.y;
+	polygonPoints.push_back(polygonPoint);
+
+	polygonPoint.x = initPoint.x + width;
+	polygonPoint.y = initPoint.y;
+	polygonPoints.push_back(polygonPoint);
+
+	polygonPoint.x = initPoint.x + width;
+	polygonPoint.y = initPoint.y + height;
+	polygonPoints.push_back(polygonPoint);
+
+	polygonPoint.x = initPoint.x;
+	polygonPoint.y = initPoint.y + height;
+	polygonPoints.push_back(polygonPoint);
+
+	double distMax = 0;
+	for (U32 i = 0; i < polygonPoints.size(); ++i) {
+		double dist = PointCalcDist(centerPoint, polygonPoints[i]);
+		if (distMax < dist) {
+			distMax = dist;
+		}
+	}
+	return round(distMax) + 10;
 }
 
 
