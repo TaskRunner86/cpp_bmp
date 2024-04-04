@@ -20,7 +20,7 @@
 #include "BmpDrawLineSuite.h"
 #include "BmpDrawPolygonSuite.h"
 #include "BmpDrawCircleSuite.h"
-
+#include "BmpDrawAreaSuite.h"
 #include "BmpCopySuite.h"
 #include "BmpRotateSuite.h"
 #include "BmpResizeSuite.h"
@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
 	BmpDrawLineSuite();
 	BmpDrawPolygonSuite();
 	BmpDrawCircleSuite();
-
+	BmpDrawAreaSuite();
 	BmpCopySuite();
 	BmpRotateSuite();
 	BmpResizeSuite();
