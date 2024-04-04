@@ -188,6 +188,9 @@ void BmpRotate(CBmp& bmp, const TPoint& centerPoint, double angle,
 
 		TRGB* pRawRGB = rawBmp.GetRGB(dstPoint.x, dstPoint.y);
 		TRGB* pRGB = bmp.GetRGB(srcPoint.x, srcPoint.y);
+		if (pRawRGB == nullptr || pRGB == nullptr) {
+			continue;
+		}
 
 		pRGB->red = pRawRGB->red;
 		pRGB->green = pRawRGB->green;
@@ -341,7 +344,7 @@ static std::vector<TPoint> BmpGetRatotePoints(const TPoint& centerPoint,
 	inAreaPointRaw.x = initPoint.x + distMax + 1;
 	inAreaPointRaw.y = initPoint.y + distMax + 1;
 	TPoint inAreaPoint;
-	BmpRotatePoint(moveCenterPoint, angle, inAreaPointRaw, inAreaPoint);	
+	BmpRotatePoint(moveCenterPoint, angle, inAreaPointRaw, inAreaPoint);
 
 	std::vector<TPoint> areaPointVec = BmpGetAreaPoint(polygonBorder, inAreaPoint,
 		moveCenterPoint.x + distMax, moveCenterPoint.y + distMax);

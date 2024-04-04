@@ -36,6 +36,12 @@ static void BmpRotateTest_1_3_200_200();
 static void BmpRotateTest_1_2_200_200();
 static void BmpRotateTest_1_200_200();
 static void BmpRotateTest_2_200_200();
+static void BmpRotateTest_1_4_full();
+static void BmpRotateTest_1_3_full();
+static void BmpRotateTest_1_2_full();
+static void BmpRotateTest_1_full();
+static void BmpRotateTest_2_full();
+static void BmpRotateTest_1_3_reverse();
 
 
 //******************************************************************************
@@ -51,6 +57,12 @@ void BmpRotateSuite() {
 	BmpRotateTest_1_2_200_200();
 	BmpRotateTest_1_200_200();
 	BmpRotateTest_2_200_200();
+	BmpRotateTest_1_4_full();
+	BmpRotateTest_1_3_full();
+	BmpRotateTest_1_2_full();
+	BmpRotateTest_1_full();
+	BmpRotateTest_2_full();
+	BmpRotateTest_1_3_reverse();
 }
 
 
@@ -106,5 +118,95 @@ static void BmpRotateTest_2_200_200() {
 	bmp.Load(DIR_SRC "raw.bmp");
 	BmpRotate(bmp, {300, 300}, PI * 2, {200, 200}, 100, 50, {0, 0, 0});
 	bmp.Save(DIR_DST "Rotate_2_200_200.bmp");
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpRotateTest_1_4_full() {
+	CBmp bmp;
+	bmp.Load(DIR_SRC "raw.bmp");
+	TPoint centerPoint;
+	centerPoint.x = (bmp.GetWidth() / 2);
+	centerPoint.y = (bmp.GetHeight() / 2);
+	BmpRotate(bmp, centerPoint, (PI / 4), {0, 0},
+		bmp.GetWidth(), bmp.GetHeight(), {0, 0, 0});
+	bmp.Save(DIR_DST "Rotate_1_4_full.bmp");
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpRotateTest_1_3_full() {
+	CBmp bmp;
+	bmp.Load(DIR_SRC "raw.bmp");
+	TPoint centerPoint;
+	centerPoint.x = (bmp.GetWidth() / 2);
+	centerPoint.y = (bmp.GetHeight() / 2);
+	BmpRotate(bmp, centerPoint, (PI / 3), {0, 0},
+		bmp.GetWidth(), bmp.GetHeight(), {0, 0, 0});
+	bmp.Save(DIR_DST "Rotate_1_3_full.bmp");
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpRotateTest_1_2_full() {
+	CBmp bmp;
+	bmp.Load(DIR_SRC "raw.bmp");
+	TPoint centerPoint;
+	centerPoint.x = (bmp.GetWidth() / 2);
+	centerPoint.y = (bmp.GetHeight() / 2);
+	BmpRotate(bmp, centerPoint, (PI / 2), {0, 0},
+		bmp.GetWidth(), bmp.GetHeight(), {0, 0, 0});
+	bmp.Save(DIR_DST "Rotate_1_2_full.bmp");
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpRotateTest_1_full() {
+	CBmp bmp;
+	bmp.Load(DIR_SRC "raw.bmp");
+	TPoint centerPoint;
+	centerPoint.x = (bmp.GetWidth() / 2);
+	centerPoint.y = (bmp.GetHeight() / 2);
+	BmpRotate(bmp, centerPoint, PI, {0, 0},
+		bmp.GetWidth(), bmp.GetHeight(), {0, 0, 0});
+	bmp.Save(DIR_DST "Rotate_1_full.bmp");
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpRotateTest_2_full() {
+	CBmp bmp;
+	bmp.Load(DIR_SRC "raw.bmp");
+	TPoint centerPoint;
+	centerPoint.x = (bmp.GetWidth() / 2);
+	centerPoint.y = (bmp.GetHeight() / 2);
+	BmpRotate(bmp, centerPoint, PI * 2, {0, 0},
+		bmp.GetWidth(), bmp.GetHeight(), {0, 0, 0});
+	bmp.Save(DIR_DST "Rotate_2_full.bmp");
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpRotateTest_1_3_reverse() {
+	CBmp bmp;
+	bmp.Load(DIR_SRC "raw.bmp");
+	TPoint centerPoint;
+	centerPoint.x = (bmp.GetWidth() / 2);
+	centerPoint.y = (bmp.GetHeight() / 2);
+	BmpRotate(bmp, centerPoint, -(PI / 3), {0, 0},
+		bmp.GetWidth(), bmp.GetHeight(), {0, 0, 0});
+	bmp.Save(DIR_DST "Rotate_1_3_reverse.bmp");
 }
 

@@ -27,7 +27,7 @@
 //------------------------------------------------------------------------------
 double PointCalcDist(const TPoint& pointA, const TPoint& pointB) {
 	double ret = 0;
-	ret = sqrt(((double)pointA.x - pointB.x) * ((double)pointA.x - pointB.x) - 
+	ret = sqrt(((double)pointA.x - pointB.x) * ((double)pointA.x - pointB.x) +
 		((double)pointA.y - pointB.y) * ((double)pointA.y - pointB.y));
 	return ret;
 }
