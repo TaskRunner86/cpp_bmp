@@ -92,6 +92,7 @@ static void DrawFrame() {
 		g_height -= deltaHeight;
 	} else {
 		g_v = (-g_v * 0.9);
+		g_height = 0;
 	}
 
 	TPoint ballPoint = {95, 25};

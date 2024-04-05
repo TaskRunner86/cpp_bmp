@@ -43,7 +43,7 @@ cd build
 .\Test.exe
 ```
 
-运行测试之后，bmp/test文件夹下会生成很多bmp图片。
+运行测试之后，bmp/test文件夹下，各个测试suite文件夹里，会生成很多bmp图片。
 
 ## 编写自己的应用
 

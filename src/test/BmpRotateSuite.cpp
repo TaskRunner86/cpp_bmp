@@ -42,6 +42,7 @@ static void BmpRotateTest_1_2_full();
 static void BmpRotateTest_1_full();
 static void BmpRotateTest_2_full();
 static void BmpRotateTest_1_3_reverse();
+static void BmpRotateTest_base_point();
 
 
 //******************************************************************************
@@ -63,6 +64,7 @@ void BmpRotateSuite() {
 	BmpRotateTest_1_full();
 	BmpRotateTest_2_full();
 	BmpRotateTest_1_3_reverse();
+	BmpRotateTest_base_point();
 }
 
 
@@ -208,5 +210,17 @@ static void BmpRotateTest_1_3_reverse() {
 	BmpRotate(bmp, centerPoint, -(PI / 3), {0, 0},
 		bmp.GetWidth(), bmp.GetHeight(), {0, 0, 0});
 	bmp.Save(DIR_DST "Rotate_1_3_reverse.bmp");
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpRotateTest_base_point() {
+	CBmp bmp;
+	bmp.Load(DIR_SRC "raw.bmp");
+	BmpRotate(bmp, {0, 0}, PI / 6, {0, 0},
+		bmp.GetWidth(), bmp.GetHeight(), {0, 0, 0});
+	bmp.Save(DIR_DST "Rotate_base_point.bmp");
 }
 
