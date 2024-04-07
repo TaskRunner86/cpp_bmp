@@ -22,8 +22,9 @@
 #include "BmpDrawCircleSuite.h"
 #include "BmpDrawAreaSuite.h"
 #include "BmpCopySuite.h"
-#include "BmpRotateSuite.h"
+#include "BmpFlipSuite.h"
 #include "BmpResizeSuite.h"
+#include "BmpRotateSuite.h"
 #include "BmpTransNoColorSuite.h"
 #include "BmpAdjustBrSuite.h"
 
@@ -43,8 +44,9 @@ int main(int argc, char *argv[]) {
 	BmpDrawCircleSuite();
 	BmpDrawAreaSuite();
 	BmpCopySuite();
-	BmpRotateSuite();
+	BmpFlipSuite();
 	BmpResizeSuite();
+	BmpRotateSuite();
 	BmpTransNoColorSuite();
 	BmpAdjustBrSuite();
 	return 0;

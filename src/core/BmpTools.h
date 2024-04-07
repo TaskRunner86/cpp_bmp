@@ -32,6 +32,9 @@ CBmp BmpCut(CBmp& bmp, const TPoint& initPoint,
 	U32 width, U32 height, const TRGB& background);
 void BmpPaste(CBmp& bottomBmp, const CBmp& topBmp, const TPoint& initPoint);
 
+void BmpHorFlip(CBmp& bmp);
+void BmpVerFlip(CBmp& bmp);
+
 void BmpResize(CBmp& bmp, U32 width, U32 height);
 
 bool BmpRotatePoint(const TPoint& centerPoint, double angle, 

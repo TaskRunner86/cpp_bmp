@@ -122,6 +122,42 @@ void BmpPaste(CBmp& bottomBmp, const CBmp& topBmp, const TPoint& initPoint) {
 
 
 //------------------------------------------------------------------------------
+// 水平翻转
+//------------------------------------------------------------------------------
+void BmpHorFlip(CBmp& bmp) {
+	CBmp rawBmp = bmp;
+	for (U32 i = 0; i < bmp.GetWidth(); ++i) {
+		for (U32 j = 0; j < bmp.GetHeight(); ++j) {
+			TRGB* pRawRGB = rawBmp.GetRGB(bmp.GetWidth() - i - 1, j);
+			TRGB* pRGB = bmp.GetRGB(i, j);
+
+			pRGB->red = pRawRGB->red;
+			pRGB->green = pRawRGB->green;
+			pRGB->blue = pRawRGB->blue;
+		}
+	}
+}
+
+
+//------------------------------------------------------------------------------
+// 垂直翻转
+//------------------------------------------------------------------------------
+void BmpVerFlip(CBmp& bmp) {
+	CBmp rawBmp = bmp;
+	for (U32 i = 0; i < bmp.GetWidth(); ++i) {
+		for (U32 j = 0; j < bmp.GetHeight(); ++j) {
+			TRGB* pRawRGB = rawBmp.GetRGB(i, bmp.GetHeight() - j - 1);
+			TRGB* pRGB = bmp.GetRGB(i, j);
+
+			pRGB->red = pRawRGB->red;
+			pRGB->green = pRawRGB->green;
+			pRGB->blue = pRawRGB->blue;
+		}
+	}
+}
+
+
+//------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
 void BmpResize(CBmp& bmp, U32 width, U32 height) {

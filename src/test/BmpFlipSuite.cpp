@@ -2,11 +2,11 @@
 
 /**************************************************************************
 * *
-* * FILE NAME : Freefall.cpp
+* * FILE NAME : BmpFlipSuite.cpp
 * *
-* * DESCRIPTION : Freefall cpp file
+* * DESCRIPTION : BmpFlipSuite cpp file
 * *
-* * DATE : 2024-3-25
+* * DATE : 2024-4-2
 * *
 * * AUTHOR : TaskRunner
 * *
@@ -15,6 +15,7 @@
 **************************************************************************/
 
 
+#include "BmpFlipSuite.h"
 #include "BmpCore.h"
 
 
@@ -22,27 +23,16 @@
 // macro
 //******************************************************************************
 
-#define DIR "../bmp/freefall/"
-
-#define GRA (10 * 5)
-#define DELTA_TIME (0.1)
+#define DIR_SRC "../bmp/test/Raw/"
+#define DIR_DST "../bmp/test/Flip/"
 
 
 //******************************************************************************
 // declaration of function
 //******************************************************************************
 
-static void Freefall();
-static void DrawFrame();
-
-
-//******************************************************************************
-// definition of global variable
-//******************************************************************************
-
-static double g_height = 300;
-static double g_v = 0;
-static U32 g_photoId = 1;
+static void BmpHorFlipTest();
+static void BmpVerFlipTest();
 
 
 //******************************************************************************
@@ -52,56 +42,30 @@ static U32 g_photoId = 1;
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-int main() {
-	printf("start\n");
-	Freefall();
-	printf("end\n");	
-	return 0;
+void BmpFlipSuite() {
+	BmpHorFlipTest();
+	BmpVerFlipTest();
 }
 
 
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-static void Freefall() {
-	for (U32 i = 0; i < 200; ++i) {
-		DrawFrame();
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//
-//------------------------------------------------------------------------------
-static void DrawFrame() {
+static void BmpHorFlipTest() {
 	CBmp bmp;
-	bmp.Init(200, 400);
+	bmp.Load(DIR_SRC "raw.bmp");
+	BmpHorFlip(bmp);
+	bmp.Save(DIR_DST "hor_flip.bmp");
+}
 
-	CBmp ballBmp;
-	ballBmp.Load(DIR "ball.bmp");
 
-	CBmp groundBmp;
-	groundBmp.Load(DIR "ground.bmp");
-
-	BmpPaste(bmp, groundBmp, {55, 20});
-
-	double deltaHeight = g_v * DELTA_TIME;
-
-	if (0 < (g_height - deltaHeight)) {
-		g_v += (GRA * DELTA_TIME);
-		g_height -= deltaHeight;
-	} else {
-		g_v = (-g_v * 0.9);
-		g_height = 0;
-	}
-
-	TPoint ballPoint = {95, 25};
-	ballPoint.y += g_height;
-	BmpPaste(bmp, ballBmp, ballPoint);
-
-	char bmpName[50];
-	sprintf(bmpName, DIR "%05d.bmp", g_photoId);
-	bmp.Save(bmpName);
-	++g_photoId;
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpVerFlipTest() {
+	CBmp bmp;
+	bmp.Load(DIR_SRC "raw.bmp");
+	BmpVerFlip(bmp);
+	bmp.Save(DIR_DST "ver_flip.bmp");
 }
 
