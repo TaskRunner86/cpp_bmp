@@ -91,7 +91,7 @@ static void DrawFrame() {
 		g_v += (GRA * DELTA_TIME);
 		g_height -= deltaHeight;
 	} else {
-		g_v = (-g_v * 0.9);
+		g_v = (- g_v * 0.9);
 		g_height = 0;
 	}
 
@@ -100,7 +100,7 @@ static void DrawFrame() {
 	BmpPaste(bmp, ballBmp, ballPoint);
 
 	char bmpName[50];
-	sprintf(bmpName, DIR "%05d.bmp", g_photoId);
+	snprintf(bmpName, sizeof(bmpName), DIR "%05d.bmp", g_photoId);
 	bmp.Save(bmpName);
 	++g_photoId;
 }

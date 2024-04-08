@@ -31,10 +31,15 @@
 // declaration of function
 //******************************************************************************
 
-static void BmpAdjustBrTest_add_50();
-static void BmpAdjustBrTest_add_255();
-static void BmpAdjustBrTest_sub_50();
-static void BmpAdjustBrTest_sub_255();
+static void BmpAdjustBrTest_add_1_50();
+static void BmpAdjustBrTest_add_1_255();
+static void BmpAdjustBrTest_sub_1_50();
+static void BmpAdjustBrTest_sub_1_255();
+
+static void BmpAdjustBrTest_add_2_0();
+static void BmpAdjustBrTest_add_1_5_0();
+static void BmpAdjustBrTest_sub_0_8_0();
+static void BmpAdjustBrTest_sub_0_5_0();
 
 
 //******************************************************************************
@@ -45,53 +50,101 @@ static void BmpAdjustBrTest_sub_255();
 //
 //------------------------------------------------------------------------------
 void BmpAdjustBrSuite() {
-	BmpAdjustBrTest_add_50();
-	BmpAdjustBrTest_add_255();
-	BmpAdjustBrTest_sub_50();
-	BmpAdjustBrTest_sub_255();
+	BmpAdjustBrTest_add_1_50();
+	BmpAdjustBrTest_add_1_255();
+	BmpAdjustBrTest_sub_1_50();
+	BmpAdjustBrTest_sub_1_255();
+	BmpAdjustBrTest_add_2_0();
+	BmpAdjustBrTest_add_1_5_0();
+	BmpAdjustBrTest_sub_0_8_0();
+	BmpAdjustBrTest_sub_0_5_0();
 }
 
 
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-static void BmpAdjustBrTest_add_50() {
+static void BmpAdjustBrTest_add_1_50() {
 	CBmp bmp;
 	bmp.Load(DIR_SRC "raw.bmp");
-	BmpAdjustBr(bmp, 50, true);
-	bmp.Save(DIR_DST "add_50.bmp");
+	BmpAdjustBr(bmp, 1, 50);
+	bmp.Save(DIR_DST "add_1_50.bmp");
 }
 
 
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-static void BmpAdjustBrTest_add_255() {
+static void BmpAdjustBrTest_add_1_255() {
 	CBmp bmp;
 	bmp.Load(DIR_SRC "raw.bmp");
-	BmpAdjustBr(bmp, 0xff, true);
-	bmp.Save(DIR_DST "add_255.bmp");
+	BmpAdjustBr(bmp, 1, 255);
+	bmp.Save(DIR_DST "add_1_255.bmp");
 }
 
 
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-static void BmpAdjustBrTest_sub_50() {
+static void BmpAdjustBrTest_sub_1_50() {
 	CBmp bmp;
 	bmp.Load(DIR_SRC "raw.bmp");
-	BmpAdjustBr(bmp, 50, false);
-	bmp.Save(DIR_DST "sub_50.bmp");
+	BmpAdjustBr(bmp, 1, -50);
+	bmp.Save(DIR_DST "sub_1_50.bmp");
 }
 
 
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-static void BmpAdjustBrTest_sub_255() {
+static void BmpAdjustBrTest_sub_1_255() {
 	CBmp bmp;
 	bmp.Load(DIR_SRC "raw.bmp");
-	BmpAdjustBr(bmp, 0xff, false);
-	bmp.Save(DIR_DST "sub_255.bmp");
+	BmpAdjustBr(bmp, 1, -255);
+	bmp.Save(DIR_DST "sub_1_255.bmp");
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpAdjustBrTest_add_2_0() {
+	CBmp bmp;
+	bmp.Load(DIR_SRC "raw.bmp");
+	BmpAdjustBr(bmp, 2, 0);
+	bmp.Save(DIR_DST "add_2_0.bmp");
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpAdjustBrTest_add_1_5_0() {
+	CBmp bmp;
+	bmp.Load(DIR_SRC "raw.bmp");
+	BmpAdjustBr(bmp, 1.5, 0);
+	bmp.Save(DIR_DST "add_1_5_0.bmp");
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpAdjustBrTest_sub_0_8_0() {
+	CBmp bmp;
+	bmp.Load(DIR_SRC "raw.bmp");
+	BmpAdjustBr(bmp, 0.8, 0);
+	bmp.Save(DIR_DST "sub_0_8_0.bmp");
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpAdjustBrTest_sub_0_5_0() {
+	CBmp bmp;
+	bmp.Load(DIR_SRC "raw.bmp");
+	BmpAdjustBr(bmp, 0.5, 0);
+	bmp.Save(DIR_DST "sub_0_5_0.bmp");
 }
 

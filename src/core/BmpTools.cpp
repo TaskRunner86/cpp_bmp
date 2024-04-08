@@ -19,13 +19,6 @@
 
 
 //******************************************************************************
-// macro
-//******************************************************************************
-
-#define BLACK_WHITE_ADJUST (0.80)
-
-
-//******************************************************************************
 // declaration of function
 //******************************************************************************
 
@@ -34,6 +27,7 @@ static std::vector<TPoint> BmpGetRatotePoints(const TPoint& centerPoint,
 static U32 BmpCalcDistMax(const TPoint& centerPoint, 
 	const TPoint& initPoint, U32 width, U32 height);
 static U32 BmpCalcAvgColor(const CBmp& bmp);
+static U8 BmpAdjustBrCalcVal(U8 val, double a, double b);
 
 
 //******************************************************************************
@@ -255,14 +249,14 @@ void BmpTransNoColor(CBmp& bmp) {
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-void BmpTransBlackWhite(CBmp& bmp) {
+void BmpTransBlackWhite(CBmp& bmp, double adjust) {
 	U32 avgColorTotal = BmpCalcAvgColor(bmp);
 	for (U32 i = 0; i < bmp.GetWidth(); ++i) {
 		for (U32 j = 0; j < bmp.GetHeight(); ++j) {
 			TRGB* pRGB = bmp.GetRGB(i, j);
 			U32 avgColor = (pRGB->red + pRGB->green + pRGB->blue) / 3;
 
-			if (avgColor <= (avgColorTotal * BLACK_WHITE_ADJUST)) {
+			if (avgColor <= (avgColorTotal * adjust)) {
 				pRGB->red = 0;
 				pRGB->green = 0;
 				pRGB->blue = 0;
@@ -294,47 +288,13 @@ void BmpReverseColor(CBmp& bmp) {
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-void BmpAdjustBr(CBmp& bmp, U8 adjustVal, bool isAdd) {
+void BmpAdjustBr(CBmp& bmp, double a, double b) {
 	for (U32 i = 0; i < bmp.GetWidth(); ++i) {
 		for (U32 j = 0; j < bmp.GetHeight(); ++j) {
 			TRGB* pRGB = bmp.GetRGB(i, j);
-			if (isAdd) {
-				if (((U32)pRGB->red + adjustVal) < 0xFF) {
-					pRGB->red += adjustVal;
-				} else {
-					pRGB->red = 0xFF;
-				}
-
-				if (((U32)pRGB->green + adjustVal) < 0xFF) {
-					pRGB->green += adjustVal;
-				} else {
-					pRGB->green = 0xFF;
-				}
-
-				if (((U32)pRGB->blue + adjustVal) < 0xFF) {
-					pRGB->blue += adjustVal;
-				} else {
-					pRGB->blue = 0xFF;
-				}
-			} else {
-				if (0x00 < ((S32)pRGB->red - adjustVal)) {
-					pRGB->red -= adjustVal;
-				} else {
-					pRGB->red = 0x00;
-				}
-
-				if (0x00 < ((S32)pRGB->green - adjustVal)) {
-					pRGB->green -= adjustVal;
-				} else {
-					pRGB->green = 0x00;
-				}
-
-				if (0x00 < ((S32)pRGB->blue - adjustVal)) {
-					pRGB->blue -= adjustVal;
-				} else {
-					pRGB->blue = 0x00;
-				}
-			}
+			pRGB->red = BmpAdjustBrCalcVal(pRGB->red, a, b);
+			pRGB->green = BmpAdjustBrCalcVal(pRGB->green, a, b);
+			pRGB->blue = BmpAdjustBrCalcVal(pRGB->blue, a, b);
 		}
 	}
 }
@@ -452,5 +412,22 @@ static U32 BmpCalcAvgColor(const CBmp& bmp) {
 	}
 	U32 avgColor = totalColor / bmp.GetWidth() / bmp.GetWidth() / 3;
 	return avgColor;
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static U8 BmpAdjustBrCalcVal(U8 val, double a, double b) {
+	double ret = val * a + b;
+	if (ret < 0) {
+		return 0;
+	}
+
+	if (0xff < ret) {
+		return 0xff;
+	}
+
+	return round(ret);
 }
 

@@ -67,7 +67,7 @@ static void BmpTransNoColorTest() {
 static void BmpTransBlackWhiteTest() {
 	CBmp bmp;
 	bmp.Load(DIR_SRC "raw.bmp");
-	BmpTransBlackWhite(bmp);
+	BmpTransBlackWhite(bmp, 0.9);
 	bmp.Save(DIR_DST "black_white.bmp");
 }
 

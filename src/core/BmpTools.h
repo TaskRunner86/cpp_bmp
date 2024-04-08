@@ -43,9 +43,9 @@ void BmpRotate(CBmp& bmp, const TPoint& centerPoint, double angle,
 	const TPoint& initPoint, U32 width, U32 height, const TRGB& background);
 
 void BmpTransNoColor(CBmp& bmp);
-void BmpTransBlackWhite(CBmp& bmp);
+void BmpTransBlackWhite(CBmp& bmp, double adjust);
 void BmpReverseColor(CBmp& bmp);
-void BmpAdjustBr(CBmp& bmp, U8 adjustVal, bool isAdd);
+void BmpAdjustBr(CBmp& bmp, double a, double b);
 
 
 #endif // __BMP_TOOLS_H__
