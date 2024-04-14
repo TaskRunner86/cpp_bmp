@@ -131,6 +131,7 @@ std::vector<TPoint> BmpGetLinePoint(const TPoint& start, const TPoint& end) {
 		rightPoint = start;
 	}
 
+	// 垂直
 	if (leftPoint.y < rightPoint.y) {
 		TPoint linePoint;
 		linePoint.x = leftPoint.x;

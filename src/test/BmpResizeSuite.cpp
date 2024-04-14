@@ -35,6 +35,7 @@ static void BmpResizeTest_big();
 static void BmpResizeTest_small();
 static void BmpResizeTest_small_big();
 static void BmpResizeTest_big_small();
+static void BmpResizeTest_mosaic();
 
 
 //******************************************************************************
@@ -49,6 +50,7 @@ void BmpResizeSuite() {
 	BmpResizeTest_small();
 	BmpResizeTest_small_big();
 	BmpResizeTest_big_small();
+	BmpResizeTest_mosaic();
 }
 
 
@@ -93,5 +95,17 @@ static void BmpResizeTest_big_small() {
 	bmp.Load(DIR_SRC "raw.bmp");
 	BmpResize(bmp, bmp.GetWidth() * 1.5, bmp.GetHeight() * 0.7);
 	bmp.Save(DIR_DST "big_small.bmp");
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpResizeTest_mosaic() {
+	CBmp bmp;
+	bmp.Load(DIR_SRC "raw.bmp");
+	BmpResize(bmp, bmp.GetWidth() / 20, bmp.GetHeight() / 20);
+	BmpResize(bmp, bmp.GetWidth() * 20, bmp.GetHeight() * 20);
+	bmp.Save(DIR_DST "mosaic.bmp");
 }
 
