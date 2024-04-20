@@ -159,9 +159,11 @@ void BmpResize(CBmp& bmp, U32 width, U32 height) {
 	newBmp.Init(width, height);
 
 	for (U32 i = 0; i < newBmp.GetWidth(); ++i) {
-		U32 widthPos = i * bmp.GetWidth() / newBmp.GetWidth();
+		U32 widthPos = round((double)i * (bmp.GetWidth() - 1) /
+			(newBmp.GetWidth() - 1));
 		for (U32 j = 0; j < newBmp.GetHeight(); ++j) {
-			U32 heightPos = j * bmp.GetHeight() / newBmp.GetHeight();
+			U32 heightPos = round((double)j * (bmp.GetHeight() - 1) /
+				(newBmp.GetHeight() - 1));
 			TRGB* pRGB = bmp.GetRGB(widthPos, heightPos);
 			TRGB* pNewRGB = newBmp.GetRGB(i, j);
 			pNewRGB->red = pRGB->red;
