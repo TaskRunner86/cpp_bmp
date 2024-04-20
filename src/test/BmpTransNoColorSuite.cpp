@@ -77,7 +77,7 @@ static void BmpTransBlackWhiteTest() {
 //------------------------------------------------------------------------------
 static void BmpReverseColorTest() {
 	CBmp bmp;
-	bmp.Load(DIR_SRC "raw.bmp");
+	bmp.Load(DIR_SRC "hand.bmp");
 	BmpReverseColor(bmp);
 	bmp.Save(DIR_DST "reverse_color.bmp");
 }
