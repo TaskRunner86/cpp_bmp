@@ -116,6 +116,36 @@ void BmpPaste(CBmp& bottomBmp, const CBmp& topBmp, const TPoint& initPoint) {
 
 
 //------------------------------------------------------------------------------
+// 透明化叠加
+//------------------------------------------------------------------------------
+bool BmpTransparent(CBmp& bottomBmp, const CBmp& topBmp,
+	double ratio, const TPoint& initPoint) {
+	if (ratio < 0 || 1 < ratio) {
+		return false;
+	}
+	for (U32 i = 0; i < topBmp.GetWidth(); ++i) {
+		for (U32 j = 0; j < topBmp.GetHeight(); ++j) {
+			if (bottomBmp.GetWidth() <= (initPoint.x + i) ||
+				bottomBmp.GetHeight() <= (initPoint.y + j)) {
+				continue;
+			}
+
+			TRGB* pBottomRGB = bottomBmp.GetRGB(initPoint.x + i, initPoint.y + j);
+			TRGB* pTopRGB = topBmp.GetRGB(i, j);
+
+			pBottomRGB->red = round(pBottomRGB->red * ratio + 
+				pTopRGB->red * (1 - ratio));
+			pBottomRGB->green = round(pBottomRGB->green * ratio + 
+				pTopRGB->green * (1 - ratio));
+			pBottomRGB->blue = round(pBottomRGB->blue * ratio + 
+				pTopRGB->blue * (1 - ratio));
+		}
+	}
+	return true;
+}
+
+
+//------------------------------------------------------------------------------
 // 水平翻转
 //------------------------------------------------------------------------------
 void BmpHorFlip(CBmp& bmp) {

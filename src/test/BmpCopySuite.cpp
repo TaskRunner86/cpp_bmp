@@ -38,6 +38,9 @@ static void BmpCutTest_1000_1000();
 static void BmpPasteTest_100_100();
 static void BmpPasteTest_1000_1000();
 static void BmpPasteTest_smile();
+static void BmpTransparentTest_smile();
+static void BmpTransparentTest_hand();
+static void BmpTransparentTest_smile_hand();
 
 
 //******************************************************************************
@@ -55,6 +58,9 @@ void BmpCopySuite() {
 	BmpPasteTest_100_100();
 	BmpPasteTest_1000_1000();
 	BmpPasteTest_smile();
+	BmpTransparentTest_smile();
+	BmpTransparentTest_hand();
+	BmpTransparentTest_smile_hand();
 }
 
 
@@ -108,12 +114,12 @@ static void BmpCutTest_1000_1000() {
 //
 //------------------------------------------------------------------------------
 static void BmpPasteTest_100_100() {
-	CBmp bmp;
-	bmp.Load(DIR_SRC "raw.bmp");
-	CBmp newBmp;
-	newBmp.Init(100, 100);
-	BmpPaste(bmp, newBmp, {100, 100});
-	bmp.Save(DIR_DST "paste_100_100.bmp");	
+	CBmp bottomBmp;
+	bottomBmp.Load(DIR_SRC "raw.bmp");
+	CBmp topBmp;
+	topBmp.Init(100, 100);
+	BmpPaste(bottomBmp, topBmp, {100, 100});
+	bottomBmp.Save(DIR_DST "paste_100_100.bmp");	
 }
 
 
@@ -121,12 +127,12 @@ static void BmpPasteTest_100_100() {
 //
 //------------------------------------------------------------------------------
 static void BmpPasteTest_1000_1000() {
-	CBmp bmp;
-	bmp.Load(DIR_SRC "raw.bmp");
-	CBmp newBmp;
-	newBmp.Init(1000, 1000);
-	BmpPaste(bmp, newBmp, {100, 100});
-	bmp.Save(DIR_DST "paste_1000_1000.bmp");
+	CBmp bottomBmp;
+	bottomBmp.Load(DIR_SRC "raw.bmp");
+	CBmp topBmp;
+	topBmp.Init(1000, 1000);
+	BmpPaste(bottomBmp, topBmp, {100, 100});
+	bottomBmp.Save(DIR_DST "paste_1000_1000.bmp");
 }
 
 
@@ -134,11 +140,50 @@ static void BmpPasteTest_1000_1000() {
 //
 //------------------------------------------------------------------------------
 static void BmpPasteTest_smile() {
-	CBmp bmp;
-	bmp.Load(DIR_SRC "raw.bmp");
-	CBmp newBmp;
-	newBmp.Load(DIR_SRC "smile.bmp");
-	BmpPaste(bmp, newBmp, {100, 100});
-	bmp.Save(DIR_DST "paste_smile.bmp");	
+	CBmp bottomBmp;
+	bottomBmp.Load(DIR_SRC "raw.bmp");
+	CBmp topBmp;
+	topBmp.Load(DIR_SRC "smile.bmp");
+	BmpPaste(bottomBmp, topBmp, {100, 100});
+	bottomBmp.Save(DIR_DST "paste_smile.bmp");	
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpTransparentTest_smile() {
+	CBmp bottomBmp;
+	bottomBmp.Init(500, 500);
+	CBmp topBmp;
+	topBmp.Load(DIR_SRC "smile.bmp");
+	BmpTransparent(bottomBmp, topBmp, 0.3, {50, 50});
+	bottomBmp.Save(DIR_DST "transparent_smile.bmp");	
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpTransparentTest_hand() {
+	CBmp bottomBmp;
+	bottomBmp.Init(500, 500);
+	CBmp topBmp;
+	topBmp.Load(DIR_SRC "hand.bmp");
+	BmpTransparent(bottomBmp, topBmp, 0.7, {50, 50});
+	bottomBmp.Save(DIR_DST "transparent_hand.bmp");	
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+static void BmpTransparentTest_smile_hand() {
+	CBmp bottomBmp;
+	bottomBmp.Load(DIR_SRC "hand.bmp");
+	CBmp topBmp;
+	topBmp.Load(DIR_SRC "smile.bmp");
+	BmpTransparent(bottomBmp, topBmp, 0.3, {50, 50});
+	bottomBmp.Save(DIR_DST "transparent_smile_hand.bmp");	
 }
 

@@ -31,6 +31,8 @@ CBmp BmpCopy(CBmp& bmp, const TPoint& initPoint, U32 width, U32 height);
 CBmp BmpCut(CBmp& bmp, const TPoint& initPoint,
 	U32 width, U32 height, const TRGB& background);
 void BmpPaste(CBmp& bottomBmp, const CBmp& topBmp, const TPoint& initPoint);
+bool BmpTransparent(CBmp& bottomBmp, const CBmp& topBmp,
+	double ratio, const TPoint& initPoint);
 
 void BmpHorFlip(CBmp& bmp);
 void BmpVerFlip(CBmp& bmp);
