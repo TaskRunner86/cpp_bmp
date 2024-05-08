@@ -26,5 +26,6 @@ add_executable(Tool ${CORE_SRC} ./src/Tool.cpp)
 add_executable(Draw ${CORE_SRC} ./src/Draw.cpp)
 add_executable(CalcPi ${CORE_SRC} ./src/CalcPi.cpp)
 add_executable(Freefall ${CORE_SRC} ./src/Freefall.cpp)
+add_executable(CharDraw ${CORE_SRC} ./src/CharDraw.cpp)
 
 message(STATUS "cpp bmp end")

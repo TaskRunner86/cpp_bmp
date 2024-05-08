@@ -8,7 +8,7 @@
             "name": "gdb",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/Test.exe",
+            "program": "${workspaceFolder}/build/CharDraw.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build",

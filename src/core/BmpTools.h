@@ -49,6 +49,8 @@ void BmpTransBlackWhite(CBmp& bmp, double adjust);
 void BmpReverseColor(CBmp& bmp);
 void BmpAdjustBr(CBmp& bmp, double a, double b);
 
+U32 BmpCalcAvgColor(const CBmp& bmp);
+
 
 #endif // __BMP_TOOLS_H__
 

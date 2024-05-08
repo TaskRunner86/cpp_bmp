@@ -26,7 +26,6 @@ static std::vector<TPoint> BmpGetRatotePoints(const TPoint& centerPoint,
 	double angle, const TPoint& initPoint, U32 width, U32 height);
 static U32 BmpCalcDistMax(const TPoint& centerPoint, 
 	const TPoint& initPoint, U32 width, U32 height);
-static U32 BmpCalcAvgColor(const CBmp& bmp);
 static U8 BmpAdjustBrCalcVal(U8 val, double a, double b);
 
 
@@ -335,6 +334,24 @@ void BmpAdjustBr(CBmp& bmp, double a, double b) {
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
+U32 BmpCalcAvgColor(const CBmp& bmp) {
+	U64 totalColor = 0;
+	for (U32 i = 0; i < bmp.GetWidth(); ++i) {
+		for (U32 j = 0; j < bmp.GetHeight(); ++j) {
+			TRGB* pRGB = bmp.GetRGB(i, j);
+			totalColor += pRGB->red;
+			totalColor += pRGB->green;
+			totalColor += pRGB->blue;
+		}
+	}
+	U32 avgColor = totalColor / bmp.GetWidth() / bmp.GetWidth() / 3;
+	return avgColor;
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
 static std::vector<TPoint> BmpGetRatotePoints(const TPoint& centerPoint,
 	double angle, const TPoint& initPoint, U32 width, U32 height) {
 	double distMax = BmpCalcDistMax(centerPoint, initPoint, width, height);
@@ -426,24 +443,6 @@ static U32 BmpCalcDistMax(const TPoint& centerPoint,
 		}
 	}
 	return round(distMax) + 10;
-}
-
-
-//------------------------------------------------------------------------------
-//
-//------------------------------------------------------------------------------
-static U32 BmpCalcAvgColor(const CBmp& bmp) {
-	U64 totalColor = 0;
-	for (U32 i = 0; i < bmp.GetWidth(); ++i) {
-		for (U32 j = 0; j < bmp.GetHeight(); ++j) {
-			TRGB* pRGB = bmp.GetRGB(i, j);
-			totalColor += pRGB->red;
-			totalColor += pRGB->green;
-			totalColor += pRGB->blue;
-		}
-	}
-	U32 avgColor = totalColor / bmp.GetWidth() / bmp.GetWidth() / 3;
-	return avgColor;
 }
 
 
