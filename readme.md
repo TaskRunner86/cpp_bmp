@@ -39,7 +39,7 @@
 
 【手搓 C++ BMP 图像处理库（11）调整大小、马赛克】 https://www.bilibili.com/video/BV1Vm411U7fg/
 
-【手搓 C++ BMP 图像处理库（11）调整大小、马赛克】 https://www.bilibili.com/video/BV1Vm411U7fg/
+【手搓 C++ BMP 图像处理库（12）旋转】 https://www.bilibili.com/video/BV1Q142197iL/
 
 【手搓 C++ BMP 图像处理库（13）灰度化、二值化、颜色反转】 https://www.bilibili.com/video/BV1PC411E7Qn/
 
