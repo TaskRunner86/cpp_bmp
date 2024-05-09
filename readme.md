@@ -10,13 +10,39 @@
 - Draw.cpp为画图应用
 - CalcPi.cpp为计算π的应用
 - Freefall.cpp为自由落体动画应用
+- CharDraw.cpp为字符画应用
 - bmp文件夹存放图片
 
 需要增加自己应用的同学，可以修改CMakeLists.txt添加新的目标，也可以直接修改Tool.cpp。
 
 视频教程如下，有兴趣的同学可以学习：
 
-【手搓开源跨平台 C++ BMP 图片库（1）图片格式、图片读写】 https://www.bilibili.com/video/BV1s6421g7ya/
+【手搓 C++ BMP 图像处理库（1）图片格式、图片读写】 https://www.bilibili.com/video/BV1s6421g7ya/
+
+【手搓 C++ BMP 图像处理库（2）画点、画线及编码调试方法】 https://www.bilibili.com/video/BV1cC411s7dN/
+
+【手搓 C++ BMP 图像处理库（3）画多边形、画圆】 https://www.bilibili.com/video/BV11t421b7UU/
+
+【手搓 C++ BMP 图像处理库（3）画多边形、画圆】 https://www.bilibili.com/video/BV11t421b7UU/
+
+【手搓 C++ BMP 图像处理库（5）区域划分、填色】 https://www.bilibili.com/video/BV1iu4m137CN/
+
+【手搓 C++ BMP 图像处理库（6）画个笑脸】 https://www.bilibili.com/video/BV17W421c7eX/
+
+【手搓 C++ BMP 图像处理库（7）计算圆周率】 https://www.bilibili.com/video/BV1jw4m1R7XA/
+
+【手搓 C++ BMP 图像处理库（8）复制、剪切、粘贴】 https://www.bilibili.com/video/BV1fx4y127iM/
+
+【手搓 C++ BMP 图像处理库（9）自由落体反弹动画】 https://www.bilibili.com/video/BV1rK421Y7UU/
+
+【手搓 C++ BMP 图像处理库（10）翻转】 https://www.bilibili.com/video/BV1UH4y1K7dY/
+
+【手搓 C++ BMP 图像处理库（11）调整大小、马赛克】 https://www.bilibili.com/video/BV1Vm411U7fg/
+
+【手搓 C++ BMP 图像处理库（11）调整大小、马赛克】 https://www.bilibili.com/video/BV1Vm411U7fg/
+
+【手搓 C++ BMP 图像处理库（13）灰度化、二值化、颜色反转】 https://www.bilibili.com/video/BV1PC411E7Qn/
+
 
 ## Windows编译
 
