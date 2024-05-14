@@ -101,7 +101,7 @@ static void BmpTransImg(CBmp& bmp, U32 width, U32 height,
 			curPoint.y = i * imgHeight;
 			CBmp curBmp = BmpCopy(bmp, curPoint, imgWidth, imgHeight);
 			U32 curAvgColor = BmpCalcAvgColor(curBmp);
-			U32 imgIndex = round((double)curAvgColor / 0xFE * (imgs.size() - 1));
+			U32 imgIndex = (double)curAvgColor / 256 * imgs.size();
 
 			BmpPaste(bmp, imgs[imgIndex], curPoint);
 		}
