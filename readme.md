@@ -43,6 +43,10 @@
 
 【手搓 C++ BMP 图像处理库（13）灰度化、二值化、颜色反转】 https://www.bilibili.com/video/BV1PC411E7Qn/
 
+【手搓 C++ BMP 图像处理库（14）字符画】 https://www.bilibili.com/video/BV1Di421Q7rc/
+
+【手搓 C++ BMP 图像处理库（15）亮度与对比度调节】 https://www.bilibili.com/video/BV1cw4m1i7B4/
+
 
 ## Windows编译
 
