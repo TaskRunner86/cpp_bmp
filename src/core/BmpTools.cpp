@@ -34,7 +34,7 @@ static U8 BmpAdjustBrCalcVal(U8 val, double a, double b);
 //******************************************************************************
 
 //------------------------------------------------------------------------------
-//
+// 复制
 //------------------------------------------------------------------------------
 CBmp BmpCopy(CBmp& bmp, const TPoint& initPoint, U32 width, U32 height) {
 	CBmp newBmp;
@@ -61,7 +61,7 @@ CBmp BmpCopy(CBmp& bmp, const TPoint& initPoint, U32 width, U32 height) {
 
 
 //------------------------------------------------------------------------------
-//
+// 剪切
 //------------------------------------------------------------------------------
 CBmp BmpCut(CBmp& bmp, const TPoint& initPoint, U32 width,
 	U32 height, const TRGB& background) {
@@ -181,7 +181,7 @@ void BmpVerFlip(CBmp& bmp) {
 
 
 //------------------------------------------------------------------------------
-//
+// 大小变化
 //------------------------------------------------------------------------------
 void BmpResize(CBmp& bmp, U32 width, U32 height) {
 	CBmp newBmp;
@@ -205,7 +205,7 @@ void BmpResize(CBmp& bmp, U32 width, U32 height) {
 
 
 //------------------------------------------------------------------------------
-//
+// 旋转点
 //------------------------------------------------------------------------------
 bool BmpRotatePoint(const TPoint& centerPoint,
 	double angle, const TPoint& srcPoint, TPoint& dstPoint) {
@@ -228,7 +228,7 @@ bool BmpRotatePoint(const TPoint& centerPoint,
 
 
 //------------------------------------------------------------------------------
-//
+// 旋转图片
 //------------------------------------------------------------------------------
 void BmpRotate(CBmp& bmp, const TPoint& centerPoint, double angle,
 	const TPoint& initPoint, U32 width, U32 height, const TRGB& background) {
@@ -261,7 +261,7 @@ void BmpRotate(CBmp& bmp, const TPoint& centerPoint, double angle,
 
 
 //------------------------------------------------------------------------------
-//
+// 灰度化
 //------------------------------------------------------------------------------
 void BmpTransNoColor(CBmp& bmp) {
 	for (U32 i = 0; i < bmp.GetWidth(); ++i) {
@@ -278,7 +278,7 @@ void BmpTransNoColor(CBmp& bmp) {
 
 
 //------------------------------------------------------------------------------
-//
+// 黑白化
 //------------------------------------------------------------------------------
 void BmpTransBlackWhite(CBmp& bmp, double adjust) {
 	U32 avgColorTotal = BmpCalcAvgColor(bmp);
@@ -317,7 +317,7 @@ void BmpReverseColor(CBmp& bmp) {
 
 
 //------------------------------------------------------------------------------
-//
+// 亮度调节
 //------------------------------------------------------------------------------
 void BmpAdjustBr(CBmp& bmp, double a, double b) {
 	for (U32 i = 0; i < bmp.GetWidth(); ++i) {

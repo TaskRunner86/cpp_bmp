@@ -34,7 +34,7 @@ static bool BmpDrawCheckPointValid(const CBmp& bmp, const TPoint& point);
 //******************************************************************************
 
 //------------------------------------------------------------------------------
-//
+// 画点
 //------------------------------------------------------------------------------
 void BmpDrawPoint(CBmp& bmp, const TPoint& point, const TRGB& rgb) {
 	if (!BmpDrawCheckPointValid(bmp, point)) {
@@ -49,7 +49,7 @@ void BmpDrawPoint(CBmp& bmp, const TPoint& point, const TRGB& rgb) {
 
 
 //------------------------------------------------------------------------------
-//
+// 画多个点
 //------------------------------------------------------------------------------
 void BmpDrawPoints(CBmp& bmp, std::vector<TPoint> pointVec, const TRGB& rgb) {
 	for (U32 i = 0; i < pointVec.size(); ++i) {
@@ -59,7 +59,7 @@ void BmpDrawPoints(CBmp& bmp, std::vector<TPoint> pointVec, const TRGB& rgb) {
 
 
 //------------------------------------------------------------------------------
-//
+// 画线
 //------------------------------------------------------------------------------
 void BmpDrawLine(CBmp& bmp, const TPoint& start, const TPoint& end, const TRGB& rgb) {
 	std::vector<TPoint> pointVec = BmpGetLinePoint(start, end);
@@ -69,7 +69,7 @@ void BmpDrawLine(CBmp& bmp, const TPoint& start, const TPoint& end, const TRGB& 
 
 
 //------------------------------------------------------------------------------
-//
+// 画多边形
 //------------------------------------------------------------------------------
 void BmpDrawPolygon(CBmp& bmp, std::vector<TPoint> pointVec, const TRGB& rgb) {
 	std::vector<TPoint> polygonBorder = BmpGetPolygonPoint(pointVec);
@@ -79,7 +79,7 @@ void BmpDrawPolygon(CBmp& bmp, std::vector<TPoint> pointVec, const TRGB& rgb) {
 
 
 //------------------------------------------------------------------------------
-//
+// 画矩形
 //------------------------------------------------------------------------------
 void BmpDrawRect(CBmp& bmp, const TPoint& initPoint,
 	U32 width, U32 height, const TRGB& rgb) {
@@ -89,7 +89,7 @@ void BmpDrawRect(CBmp& bmp, const TPoint& initPoint,
 
 
 //------------------------------------------------------------------------------
-//
+// 画圆
 //------------------------------------------------------------------------------
 void BmpDrawCircle(CBmp& bmp, const TPoint& centerPoint, U32 radius, const TRGB& rgb) {
 	if (radius == 0) {
@@ -102,7 +102,7 @@ void BmpDrawCircle(CBmp& bmp, const TPoint& centerPoint, U32 radius, const TRGB&
 
 
 //------------------------------------------------------------------------------
-//
+// 填充区域
 //------------------------------------------------------------------------------
 void BmpDrawArea(
 	CBmp& bmp,
@@ -116,7 +116,7 @@ void BmpDrawArea(
 
 
 //------------------------------------------------------------------------------
-//
+// 获得直线上的所有点
 //------------------------------------------------------------------------------
 std::vector<TPoint> BmpGetLinePoint(const TPoint& start, const TPoint& end) {
 	std::vector<TPoint> pointVec;
@@ -198,7 +198,7 @@ std::vector<TPoint> BmpGetLinePoint(const TPoint& start, const TPoint& end) {
 
 
 //------------------------------------------------------------------------------
-//
+// 获得多边形上的所有点
 //------------------------------------------------------------------------------
 std::vector<TPoint> BmpGetPolygonPoint(std::vector<TPoint> pointVec) {
 	std::set<TPoint> pointSet;
@@ -220,7 +220,7 @@ std::vector<TPoint> BmpGetPolygonPoint(std::vector<TPoint> pointVec) {
 
 
 //------------------------------------------------------------------------------
-//
+// 获得矩形上的所有点
 //------------------------------------------------------------------------------
 std::vector<TPoint> BmpGetRectPoint(const TPoint& initPoint,
 	U32 width, U32 height) {
@@ -245,7 +245,7 @@ std::vector<TPoint> BmpGetRectPoint(const TPoint& initPoint,
 
 
 //------------------------------------------------------------------------------
-//
+// 获得圆上的所有点
 //------------------------------------------------------------------------------
 std::vector<TPoint> BmpGetCirclePoint(const TPoint& centerPoint, U32 radius) {
 	std::vector<TPoint> pointVec = BmpDrawGetSectorPoint(radius);
@@ -289,7 +289,7 @@ std::vector<TPoint> BmpGetCirclePoint(const TPoint& centerPoint, U32 radius) {
 
 
 //------------------------------------------------------------------------------
-//
+// 获得区域上的所有点
 //------------------------------------------------------------------------------
 std::vector<TPoint> BmpGetAreaPoint(
 	std::vector<TPoint> border,

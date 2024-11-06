@@ -26,7 +26,7 @@
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-U32 CpGetRandU32(U32 num) {
+U32 GetRandU32(U32 num) {
 	static bool isSeek = false;
 
 	if (isSeek == false) {
@@ -44,6 +44,6 @@ double GetRandomDouble(double num) {
 	if (num <= 0) {
 		return 0;
 	}
-	return ((double)CpGetRandU32(RAND_MAX) / RAND_MAX) * num;
+	return ((double)GetRandU32(RAND_MAX) / RAND_MAX) * num;
 }
 

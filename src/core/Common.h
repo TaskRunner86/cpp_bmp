@@ -44,6 +44,6 @@ typedef signed long long S64;
 // declaration of function
 //******************************************************************************
 
-U32 CpGetRandU32(U32 num);
+U32 GetRandU32(U32 num);
 double GetRandomDouble(double num);
 
