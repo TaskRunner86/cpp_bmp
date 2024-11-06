@@ -278,7 +278,7 @@ void BmpTransNoColor(CBmp& bmp) {
 
 
 //------------------------------------------------------------------------------
-// 黑白化
+// 二值化
 //------------------------------------------------------------------------------
 void BmpTransBlackWhite(CBmp& bmp, double adjust) {
 	U32 avgColorTotal = BmpCalcAvgColor(bmp);
