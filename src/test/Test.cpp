@@ -27,6 +27,7 @@
 #include "BmpRotateSuite.h"
 #include "BmpTransNoColorSuite.h"
 #include "BmpAdjustBrSuite.h"
+#include "HsvToolsSuite.h"
 
 
 //******************************************************************************
@@ -49,6 +50,7 @@ int main(int argc, char *argv[]) {
 	BmpRotateSuite();
 	BmpTransNoColorSuite();
 	BmpAdjustBrSuite();
+	HsvSuite();
 	return 0;
 }
 
