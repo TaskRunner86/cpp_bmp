@@ -21,6 +21,7 @@
 
 #include "Bmp.h"
 #include "Point.h"
+#include "HsvTools.h"
 #include "BmpDrawTools.h"
 #include "BmpTools.h"
 

@@ -28,9 +28,30 @@
 
 // 定义HSV结构体
 typedef struct TagHSV {
-	int h;
-	double s;
-	double v;
+	bool operator < (const TagHSV& hsv) const{
+		if (this->h != hsv.h) {
+			return this->h < hsv.h;
+		}
+		if (this->s != hsv.s) {
+			return this->s < hsv.s;
+		}		
+		return this->v < hsv.v;
+	}
+
+	bool operator == (const TagHSV& hsv) const{
+		if (this->h == hsv.h && this->s == hsv.s &&
+			this->v == hsv.v) {
+			return true;
+		}
+		return false;
+	}	
+
+	// 0 - 359
+	U32 h;
+	// 0 - 100
+	U32 s;
+	// 0 - 100
+	U32 v;
 } THSV;
 
 

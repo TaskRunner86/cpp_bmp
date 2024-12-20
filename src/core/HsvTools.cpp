@@ -45,14 +45,16 @@ void Rgb2Hsv(const TRGB& rgb, THSV& hsv) {
 	max = std::max({r, g, b});
 	min = std::min({r, g, b});
 
-	v = max;
+	v = max;	
 	delta = max - min;
+	hsv.v = round(v * 100 / 255);
 
 	if (IsEqual(max, 0)) {
 		s = 0.0;
 	} else {
 		s = delta / max;
 	}
+	hsv.s = round(s * 100);
 
 	if (IsEqual(max, min)) {
 		h = 0.0;
@@ -68,11 +70,10 @@ void Rgb2Hsv(const TRGB& rgb, THSV& hsv) {
 		}
 	}
 
-	hsv.h = round(h);
-	hsv.h = (hsv.h > 359) ? (hsv.h - 360) : hsv.h;
-	hsv.h = (hsv.h < 0) ? (hsv.h + 360) : hsv.h;
-	hsv.s = s;
-	hsv.v = v;
+	int hInt = round(h);
+	hInt = (hInt > 359) ? (hInt - 360) : hInt;
+	hInt = (hInt < 0) ? (hInt + 360) : hInt;
+	hsv.h = hInt;
 }
 
 

@@ -21,6 +21,7 @@
 
 #include "Bmp.h"
 #include "BmpDrawTools.h"
+#include "HsvTools.h"
 
 
 //******************************************************************************
@@ -48,6 +49,12 @@ void BmpTransNoColor(CBmp& bmp);
 void BmpTransBlackWhite(CBmp& bmp, double adjust);
 void BmpReverseColor(CBmp& bmp);
 void BmpAdjustBr(CBmp& bmp, double a, double b);
+
+std::vector<TPoint> BmpGetColorRangePoint(CBmp& bmp,
+	const THSV& minHsv, const THSV& maxHsv);
+
+std::vector<TPoint> BmpGetReversePoint(CBmp& bmp,
+	std::vector<TPoint> points);
 
 U32 BmpCalcAvgColor(const CBmp& bmp);
 

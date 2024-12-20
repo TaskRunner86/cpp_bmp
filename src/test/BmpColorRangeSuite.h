@@ -3,9 +3,9 @@
 
 /**************************************************************************
 * *
-* * FILE NAME : BmpFlipSuite.h
+* * FILE NAME : BmpColorRangeSuite.h
 * *
-* * DESCRIPTION : BmpFlipSuite h file
+* * DESCRIPTION : BmpColorRangeSuite h file
 * *
 * * DATE : 2024-4-2
 * *
@@ -16,16 +16,16 @@
 **************************************************************************/
 
 
-#ifndef __BMP_FLIP_SUITE_H__
-#define __BMP_FLIP_SUITE_H__
+#ifndef __BMP_COLOR_RANGE_SUITE_H__
+#define __BMP_COLOR_RANGE_SUITE_H__
 
 
 //******************************************************************************
 // declaration of function
 //******************************************************************************
 
-void BmpFlipSuite();
+void BmpColorRangeSuite();
 
 
-#endif // __BMP_FLIP_SUITE_H__
+#endif // __BMP_COLOR_RANGE_SUITE_H__
 

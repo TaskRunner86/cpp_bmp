@@ -2,9 +2,9 @@
 
 /**************************************************************************
 * *
-* * FILE NAME : HsvToolsSuite.cpp
+* * FILE NAME : BmpColorRangeSuite.cpp
 * *
-* * DESCRIPTION : HsvToolsSuite cpp file
+* * DESCRIPTION : BmpColorRangeSuite cpp file
 * *
 * * DATE : 2024-4-2
 * *
@@ -15,17 +15,24 @@
 **************************************************************************/
 
 
-#include "HsvToolsSuite.h"
+#include "BmpColorRangeSuite.h"
 #include "BmpCore.h"
+
+
+//******************************************************************************
+// macro
+//******************************************************************************
+
+#define DIR_SRC "../bmp/test/Raw/"
+#define DIR_DST "../bmp/test/ColorRange/"
 
 
 //******************************************************************************
 // declaration of function
 //******************************************************************************
 
-static void HsvTest_01();
-static void HsvTest_02();
-static void HsvTest_03();
+static void BmpChangeBackgroundTest();
+static void BmpRemoveManTest();
 
 
 //******************************************************************************
@@ -35,44 +42,32 @@ static void HsvTest_03();
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-void HsvSuite() {
-	HsvTest_01();
-	HsvTest_02();
-	HsvTest_03();
+void BmpColorRangeSuite() {
+	BmpChangeBackgroundTest();
+	BmpRemoveManTest();
 }
 
 
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-static void HsvTest_01() {
-	TRGB rgb = {255, 100, 100};
-	THSV hsv;
-	Rgb2Hsv(rgb, hsv);
-	printf("red = %d green = %d blue = %d\n", rgb.red, rgb.green, rgb.blue);
-	printf("h = %d s = %d v = %d\n", hsv.h, hsv.s, hsv.v);	
+static void BmpChangeBackgroundTest() {
+	CBmp bmp;
+	bmp.Load(DIR_SRC "green.bmp");
+	std::vector<TPoint> backgroundPoints = BmpGetColorRangePoint(bmp, 
+		{90, 30, 30}, {155, 100, 100});
+	BmpDrawPoints(bmp, backgroundPoints, {0, 0x8f, 0xff});
+	bmp.Save(DIR_DST "change_background.bmp");	
 }
 
 
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-static void HsvTest_02() {
-	TRGB rgb = {120, 120, 120};
-	THSV hsv;
-	Rgb2Hsv(rgb, hsv);
-	printf("red = %d green = %d blue = %d\n", rgb.red, rgb.green, rgb.blue);
-	printf("h = %d s = %d v = %d\n", hsv.h, hsv.s, hsv.v);	
+static void BmpRemoveManTest() {
+	// CBmp bmp;
+	// bmp.Load(DIR_SRC "raw.bmp");
+	// BmpVerFlip(bmp);
+	// bmp.Save(DIR_DST "ver_flip.bmp");
 }
 
-
-//------------------------------------------------------------------------------
-//
-//------------------------------------------------------------------------------
-static void HsvTest_03() {
-	TRGB rgb = {0, 120, 20};
-	THSV hsv;
-	Rgb2Hsv(rgb, hsv);
-	printf("red = %d green = %d blue = %d\n", rgb.red, rgb.green, rgb.blue);
-	printf("h = %d s = %d v = %d\n", hsv.h, hsv.s, hsv.v);	
-}

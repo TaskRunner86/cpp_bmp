@@ -16,6 +16,7 @@
 
 
 #include "BmpTools.h"
+#include <set>
 
 
 //******************************************************************************
@@ -329,6 +330,57 @@ void BmpAdjustBr(CBmp& bmp, double a, double b) {
 		}
 	}
 }
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+std::vector<TPoint> BmpGetColorRangePoint(CBmp& bmp,
+	const THSV& minHsv, const THSV& maxHsv) {
+	std::set<TPoint> pointSet;
+	for (U32 i = 0; i < bmp.GetWidth(); ++i) {
+		for (U32 j = 0; j < bmp.GetHeight(); ++j) {
+			TRGB* pRGB = bmp.GetRGB(i, j);
+			THSV hsv;
+			Rgb2Hsv(*pRGB, hsv);
+			if ((minHsv.h <= hsv.h) && (hsv.h <= maxHsv.h) &&
+				(minHsv.s <= hsv.s) && (hsv.s <= maxHsv.s) &&
+				(minHsv.v <= hsv.v) && (hsv.v <= maxHsv.v)) {
+				TPoint point;
+				point.x = i;
+				point.y = j;
+				pointSet.insert(point);
+			}
+		}
+	}
+	std::vector<TPoint> retPointVec(pointSet.begin(), pointSet.end());
+	return retPointVec;	
+}
+
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+std::vector<TPoint> BmpGetReversePoint(CBmp& bmp,
+	std::vector<TPoint> points) {
+	std::set<TPoint> pointSet;
+	for (U32 i = 0; i < bmp.GetWidth(); ++i) {
+		for (U32 j = 0; j < bmp.GetHeight(); ++j) {
+			TPoint point;
+			point.x = i;
+			point.y = j;
+			pointSet.insert(point);
+		}
+	}
+
+	for (U32 i = 0; i < points.size(); ++i) {
+		pointSet.erase(points[i]);
+	}
+
+	std::vector<TPoint> retPointVec(pointSet.begin(), pointSet.end());
+	return retPointVec;	
+}
+
 
 
 //------------------------------------------------------------------------------
