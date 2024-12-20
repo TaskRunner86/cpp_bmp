@@ -39,18 +39,18 @@
 //
 //------------------------------------------------------------------------------
 int main(int argc, char *argv[]) {
-	// BmpSuite();
-	// BmpDrawPointSuite();
-	// BmpDrawLineSuite();
-	// BmpDrawPolygonSuite();
-	// BmpDrawCircleSuite();
-	// BmpDrawAreaSuite();
-	// BmpCopySuite();
-	// BmpFlipSuite();
-	// BmpResizeSuite();
-	// BmpRotateSuite();
-	// BmpTransNoColorSuite();
-	// BmpAdjustBrSuite();
+	BmpSuite();
+	BmpDrawPointSuite();
+	BmpDrawLineSuite();
+	BmpDrawPolygonSuite();
+	BmpDrawCircleSuite();
+	BmpDrawAreaSuite();
+	BmpCopySuite();
+	BmpFlipSuite();
+	BmpResizeSuite();
+	BmpRotateSuite();
+	BmpTransNoColorSuite();
+	BmpAdjustBrSuite();
 	HsvSuite();
 	BmpColorRangeSuite();	
 	return 0;
