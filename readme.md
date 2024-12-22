@@ -47,6 +47,10 @@
 
 【手搓 C++ BMP 图像处理库（15）亮度与对比度调节】 https://www.bilibili.com/video/BV1cw4m1i7B4/
 
+【手搓 C++ BMP 图像处理库（15）亮度与对比度调节】 https://www.bilibili.com/video/BV1cw4m1i7B4/
+
+【手搓 C++ BMP 图像处理库（17）HSV与绿幕】 https://www.bilibili.com/video/BV1CJCKYiEcg/
+
 
 ## Windows编译
 
