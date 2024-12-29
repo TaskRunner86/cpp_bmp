@@ -92,7 +92,8 @@ static void BmpChangeBackgroundTest() {
 
 	for (U32 i = 0; i < manPoints.size(); ++i) {
 		TRGB* pRawRGB = bmp.GetRGB(manPoints[i].x, manPoints[i].y);
-		TRGB* pBackgroundRGB = backgroundBmp.GetRGB(manPoints[i].x + 100 , manPoints[i].y - 30);
+		TRGB* pBackgroundRGB = backgroundBmp.GetRGB(
+			manPoints[i].x + 100, manPoints[i].y - 30);
 		pBackgroundRGB->red = pRawRGB->red;
 		pBackgroundRGB->green = pRawRGB->green;
 		pBackgroundRGB->blue = pRawRGB->blue;
